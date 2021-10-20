@@ -255,8 +255,4 @@ if __name__ == "__main__":
     "Level 3":[PartialLeastSquares()]
     }
     solutions=SupervisedChemsy(X, Y,recipe=custom_recipe)
-<<<<<<< HEAD
     solutions.get_results()
-=======
-    solutions.get_results()
->>>>>>> 291d054dfec8e8ec0ad65a29ba0a32b202106399
