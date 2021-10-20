@@ -23,8 +23,8 @@ from tqdm.auto import tqdm
 from scipy.signal import savgol_filter
 from sklearn.base import TransformerMixin, RegressorMixin, BaseEstimator
 from functools import reduce
-from Prep.Methods import SavgolFilter, BaselineASLS, BaselineModpoly, BaselineZhangFit, BaselineIModPoly, BaselineLinear, BaselineSecondOrder, MSC, FirstDerivative, SNV
-from Predict.Methods import PartialLeastSquares
+from chemsy.prep.methods import SavgolFilter, BaselineASLS, BaselineModpoly, BaselineZhangFit, BaselineIModPoly, BaselineLinear, BaselineSecondOrder, MSC, FirstDerivative, SNV
+from chemsy.predict.methods import PartialLeastSquares
 import pprint
 def MBEfunc(y_true , y_pred):
     '''
