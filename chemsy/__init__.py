@@ -1,2 +1,2 @@
-from Prep.Methods import *
-from Predict.Methods import *
+from chemsy.prep.methods import *
+from chemsy.predict.methods import *
