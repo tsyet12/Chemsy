@@ -18,7 +18,7 @@ long_description_content_type="text/markdown",
 author_email='tsyet12@gmail.com',
 keywords = ['Machine Learning', 'Chemometrics', 'Process Analytical Technology', 'Spectroscopy'],
 packages=find_packages(),
-setup_requires=['numpy', 'matplotlib'],
+setup_requires=['numpy', 'matplotlib', 'baselineremoval','sklearn'],
 classifiers=[
     'Development Status :: 4 - Beta',      
     'Intended Audience :: Developers',     

@@ -187,11 +187,20 @@ class SupervisedChemsy():
         self.pbar.update(1)
         for ii in range(0,len(recipe_list)):
           feed_list[ii]=recipe_list[ii][int(eval_list[ii])]
-        method_name=get_name(feed_list)  
+        method_name=get_name(feed_list) 
+        clf=make_pipeline(*feed_list)
+        score=cross_validate(clf, X, y, cv=cv,scoring=scoring_dict)
+        score=fix_name(score)
+        if self.df is None:
+            self.df=pd.DataFrame.from_dict(score).mean(axis=0).to_frame().transpose().rename(index={0:method_name})
+        else:
+            self.df=pd.concat([self.df,pd.DataFrame.from_dict(score).mean(axis=0).to_frame().transpose().rename(index={0:method_name})])
+        '''
         try:
           clf=make_pipeline(*feed_list)
-          score=cross_validate(clf, X, Y, cv=cv,scoring=scoring_dict)
+          score=cross_validate(clf, X, y, cv=cv,scoring=scoring_dict)
           score=fix_name(score)
+          
           if self.df is None:
 
             self.df=pd.DataFrame.from_dict(score).mean(axis=0).to_frame().transpose().rename(index={0:method_name})
@@ -201,6 +210,7 @@ class SupervisedChemsy():
             if verbose:
               print("Fail: "+method_name)
               print(e)
+        '''      
         return score['cross_val_MAE'].mean()
 
       def default_solver(model,x,xmin,xmax,*args,**kwargs):
@@ -250,7 +260,7 @@ if __name__ == "__main__":
     from sklearn.datasets import load_diabetes
     X, Y = load_diabetes(return_X_y=True)
     custom_recipe= {
-    "Level 1":[BaselineASLS(),StandardScaler(),MinMaxScaler(),RobustScaler()],
+    "Level 1":[SavgolFilter(),StandardScaler(),MinMaxScaler(),RobustScaler()],
     "Level 2":[PowerTransformer(),QuantileTransformer(output_distribution='normal', random_state=0), PCA(n_components='mle')],
     "Level 3":[PartialLeastSquares()]
     }
