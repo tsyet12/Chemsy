@@ -17,7 +17,7 @@ from sklearn.gaussian_process import GaussianProcessRegressor
 
 class PartialLeastSquaresCV(BaseEstimator):
   def __init__(self,cv=ShuffleSplit(n_splits=5, test_size=0.2, random_state=999)):
-      self.__name__='PartialLeastSquares(Cross Validated)'
+      self.__name__='PartialLeastSquaresCV'
       self.cv=cv
       self.model=None
   def predict(self, X, y=None):

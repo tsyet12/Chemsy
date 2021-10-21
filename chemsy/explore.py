@@ -111,8 +111,9 @@ class SupervisedChemsy():
         if not verbose:
             warnings.filterwarnings("ignore")
         self.pbar.refresh()
-    def get_results(self):
-        print(self.df)
+    def get_results(self, verbose=True):
+        if verbose:
+            print(self.df)
         return self.df
         
     def get_recipe(self):
