@@ -8,7 +8,7 @@ from sklearn.base import TransformerMixin, RegressorMixin, BaseEstimator
 from scipy import sparse, signal
 from BaselineRemoval import BaselineRemoval
 from sklearn.model_selection import ShuffleSplit
-
+from scipy.sparse.linalg import spsolve
 class SavgolFilter(TransformerMixin):
   def __init__(self,window_length=5,polyorder=2,axis=1,  *args, **kwargs):
       self.__name__='SavgolFilter'
@@ -24,10 +24,11 @@ class SavgolFilter(TransformerMixin):
   def fit_transform(self,X,y=None):
       return savgol_filter(X,window_length=self.window_length,polyorder=self.polyorder,axis=self.axis)
 
+
 class BaselineASLS(TransformerMixin):
   #Asymmetric Least Squares
-  def __init__(self, lam=10**6, p=0.01, niter=10):
-      self.__name__='BaselineALS'
+  def __init__(self, lam=1e5, p=1e-3, niter=10):
+      self.__name__='BaselineAsLS'
       self.lam=lam
       self.p=p
       self.niter=niter
@@ -36,33 +37,25 @@ class BaselineASLS(TransformerMixin):
       self.y=y
   def transform(self,X,y=None):
       y=self.y
-      try:
-        X=X.to_numpy()
-      except:
-        pass    
-      try:
-        y=y.to_frame()
-        y=y.to_numpy()
-      except:
-        pass
-      X_=np.zeros_like(X)
-      for j in range(X_.shape[0]):
-        L = len(X[j,:])
-        D = sparse.diags([1,-2,1],[0,-1,-2], shape=(L,L-2))
-        D = self.lam * D.dot(D.transpose())
-        w = np.ones(L)
-        W = sparse.spdiags(w, 0, L, L)
-        for i in range(self.niter):
-            W.setdiag(w)
-            Z = W + D
-            z = sparse.linalg.spsolve(Z, w*y[j,:])
-            w = self.p * (y[j,:] > z) + (1-self.p) * (y[j,:] < z)
-        X_[j,:]=z      
+      X_=np.apply_along_axis(lambda x: self.line_remove(x), 0, X)        
       return X_
-
+  def line_remove(self,f):
+      L = len(f)
+      D = sparse.csc_matrix(np.diff(np.eye(L), 2))
+      w = np.ones(L)
+      z = 0
+      for i in range(self.niter):
+          W = sparse.spdiags(w, 0, L, L)
+          Z = W + self.lam * D.dot(D.transpose())
+          z = spsolve(Z, w * f)
+          w = self.p * (f > z) + (1 - self.p) * (f < z)
+      return z    
   def fit_transform(self,X,y=None):
       self.y=y
       return self.transform(X,y)
+
+
+
 
 class BaselineModpoly(BaseEstimator,TransformerMixin):
   def __init__(self, degree=2):
@@ -225,7 +218,7 @@ class MSC(BaseEstimator,TransformerMixin):
 
 class FirstDerivative(BaseEstimator,TransformerMixin):
     def __init__(self,d=2):
-        self.__name__='First-Order Derivative'
+        self.__name__='First Derivative'
         self.d=d
     def fit(self,X,y):
         pass
@@ -247,6 +240,45 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
         drop= list(X_.columns)[0:2]
         X_.drop(columns=drop,inplace=True)    
         return X_
+
+
+#Piecewise MSC (PMSC)
+#Extended MSC (2nd order), Inverse MSC, EIMSC
+#Weighted MSC, Loopy MSC (LMSC)
+#Norris-Williams
+#WhittakerSmooth
+
+class SecondDerivative(BaseEstimator,TransformerMixin):
+    def __init__(self,d=2):
+        self.__name__='Second Derivative'
+        self.d=d
+    def fit(self,X,y):
+        pass
+    def transform(self,X,y=None): 
+        try:
+          X=pd.DataFrame(X)
+        except:
+          pass
+        X_=X.diff(self.d,axis=1)
+        drop= list(X_.columns)[0:2]
+        X_.drop(columns=drop,inplace=True)  
+        X_=X_.diff(self.d,axis=1) #second dev
+        drop= list(X_.columns)[0:2]
+        X_.drop(columns=drop,inplace=True) 
+        return X_
+    def fit_transform(self,X,y=None):
+        try:
+          X=pd.DataFrame(X)
+        except:
+          pass
+        X_=X.diff(self.d,axis=1)
+        drop= list(X_.columns)[0:2]
+        X_.drop(columns=drop,inplace=True)  
+        X_=X_.diff(self.d,axis=1) #second dev
+        drop= list(X_.columns)[0:2]
+        X_.drop(columns=drop,inplace=True)         
+        return X_
+
 
 class SNV(BaseEstimator,TransformerMixin):
     def __init__(self):

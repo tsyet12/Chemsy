@@ -16,9 +16,13 @@ if __name__=="__main__":
     from sklearn.datasets import load_diabetes
     X, Y = load_diabetes(return_X_y=True)
     custom_recipe= {
-    "Level 1":[StandardScaler(),MinMaxScaler(),RobustScaler()],
+    "Level 1":[BaselineASLS(),StandardScaler(),MinMaxScaler(),RobustScaler()],
     "Level 2":[PowerTransformer(),QuantileTransformer(output_distribution='normal', random_state=0), PCA(n_components='mle')],
     "Level 3":[PartialLeastSquares()]
     }
     solutions=SupervisedChemsy(X, Y,recipe=custom_recipe)
     solutions.get_results()
+    
+    
+    BL=BaselineASLS()
+    X_=BL.fit_transform(X=X,y=Y)
