@@ -2,3 +2,5 @@ numpy
 matplotlib
 sklearn
 BaselineRemoval
+scipy
+tqdm

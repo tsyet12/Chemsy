@@ -1,6 +1,7 @@
+
+#dependencies
 from sklearn.cross_decomposition import PLSRegression
 from sklearn.model_selection import cross_validate
-from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
 import pandas as pd
 import numpy as np
 from scipy.signal import savgol_filter
@@ -9,6 +10,14 @@ from scipy import sparse, signal
 from BaselineRemoval import BaselineRemoval
 from sklearn.model_selection import ShuffleSplit
 from scipy.sparse.linalg import spsolve
+
+#Import prep methods
+from sklearn.preprocessing import StandardScaler, MinMaxScaler,MaxAbsScaler, RobustScaler
+from sklearn.preprocessing import FunctionTransformer, PowerTransformer, QuantileTransformer
+from sklearn.decomposition import PCA, KernelPCA
+   
+
+
 class SavgolFilter(TransformerMixin):
   def __init__(self,window_length=5,polyorder=2,axis=1,  *args, **kwargs):
       self.__name__='SavgolFilter'
@@ -53,7 +62,6 @@ class BaselineASLS(TransformerMixin):
   def fit_transform(self,X,y=None):
       self.y=y
       return self.transform(X,y)
-
 
 
 
@@ -241,7 +249,7 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
         X_.drop(columns=drop,inplace=True)    
         return X_
 
-
+# TO DO:
 #Piecewise MSC (PMSC)
 #Extended MSC (2nd order), Inverse MSC, EIMSC
 #Weighted MSC, Loopy MSC (LMSC)
@@ -297,7 +305,24 @@ class SNV(BaseEstimator,TransformerMixin):
       except:
         pass
       return (X -X.mean(axis=0))/(X.std(axis=0)+0.0000001)
-
+class RNV(BaseEstimator,TransformerMixin):
+    def __init__(self,q=0.1):
+      self.__name__='RNV'
+      self.q=q
+    def fit(self,spc):
+      pass
+    def transform(self,X, y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return (X -X.quantile(q=self.q,axis=0))/(X.quantile(q=self.q,axis=0).std(axis=0)+0.0000001)
+    def fit_transform(self,X,y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return (X -X.quantile(q=self.q,axis=0))/(X.quantile(q=self.q,axis=0).std(axis=0)+0.0000001)
 
 class PartialLeastSquares(BaseEstimator):
   def __init__(self,cv=ShuffleSplit(n_splits=5, test_size=0.2, random_state=999)):

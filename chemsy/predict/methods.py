@@ -5,9 +5,19 @@ import numpy as np
 from sklearn.base import TransformerMixin, RegressorMixin, BaseEstimator
 from sklearn.model_selection import ShuffleSplit
 
-class PartialLeastSquares(BaseEstimator):
+from sklearn.kernel_ridge import KernelRidge
+from sklearn.neural_network import MLPRegressor
+from sklearn.ensemble import GradientBoostingRegressor,RandomForestRegressor
+from sklearn.linear_model import LinearRegression, Lasso, ElasticNet, Ridge, BayesianRidge
+from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.gaussian_process import GaussianProcessRegressor
+
+
+class PartialLeastSquaresCV(BaseEstimator):
   def __init__(self,cv=ShuffleSplit(n_splits=5, test_size=0.2, random_state=999)):
-      self.__name__='PLS_CV'
+      self.__name__='PartialLeastSquares(Cross Validated)'
       self.cv=cv
       self.model=None
   def predict(self, X, y=None):

@@ -2,10 +2,12 @@ from sklearn import svm
 from sklearn.model_selection import cross_val_score, ShuffleSplit
 from sklearn import metrics
 from sklearn.pipeline import make_pipeline
-from sklearn.kernel_ridge import KernelRidge
-from sklearn.preprocessing import StandardScaler, MinMaxScaler,MaxAbsScaler
 from sklearn.metrics import make_scorer
 from sklearn.model_selection import cross_validate
+
+'''
+from sklearn.kernel_ridge import KernelRidge
+from sklearn.preprocessing import StandardScaler, MinMaxScaler,MaxAbsScaler
 from sklearn.neural_network import MLPRegressor
 from sklearn.ensemble import GradientBoostingRegressor,RandomForestRegressor
 from sklearn.linear_model import LinearRegression, Lasso, ElasticNet, Ridge, BayesianRidge
@@ -14,17 +16,19 @@ from sklearn.random_projection import GaussianRandomProjection,SparseRandomProje
 from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.decomposition import PCA, KernelPCA
-import pandas as pd
-import warnings
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.gaussian_process import GaussianProcessRegressor
+'''
+import pandas as pd
+import warnings
+
 import numpy as np
 from tqdm.auto import tqdm
 from scipy.signal import savgol_filter
 from sklearn.base import TransformerMixin, RegressorMixin, BaseEstimator
 from functools import reduce
-from chemsy.prep.methods import SavgolFilter, BaselineASLS, BaselineModpoly, BaselineZhangFit, BaselineIModPoly, BaselineLinear, BaselineSecondOrder, MSC, FirstDerivative, SNV
-from chemsy.predict.methods import PartialLeastSquares
+from chemsy.prep.methods import *
+from chemsy.predict.methods import *
 import pprint
 def MBEfunc(y_true , y_pred):
     '''
