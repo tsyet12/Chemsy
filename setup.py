@@ -26,6 +26,7 @@ author_email='tsyet12@gmail.com',
 keywords = ['Machine Learning', 'Chemometrics', 'Process Analytical Technology', 'Spectroscopy'],
 packages=find_packages(),
 setup_requires=install_requires,
+install_requires=install_requires,
 classifiers=[
     'Development Status :: 4 - Beta',      
     'Intended Audience :: Developers',     
