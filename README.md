@@ -57,7 +57,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the BSD-2-Clause License. See `LICENSE` [Link](https://github.com/tsyet12/Chemsy/blob/main/LICENSE) for more information.
+Distributed under the BSD-2-Clause License. See [`LICENSE`](https://github.com/tsyet12/Chemsy/blob/main/LICENSE) for more information.
 
 
 
