@@ -4,21 +4,6 @@ from sklearn import metrics
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import make_scorer
 from sklearn.model_selection import cross_validate
-
-'''
-from sklearn.kernel_ridge import KernelRidge
-from sklearn.preprocessing import StandardScaler, MinMaxScaler,MaxAbsScaler
-from sklearn.neural_network import MLPRegressor
-from sklearn.ensemble import GradientBoostingRegressor,RandomForestRegressor
-from sklearn.linear_model import LinearRegression, Lasso, ElasticNet, Ridge, BayesianRidge
-from sklearn.preprocessing import FunctionTransformer, PowerTransformer, QuantileTransformer, RobustScaler
-from sklearn.random_projection import GaussianRandomProjection,SparseRandomProjection
-from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.decomposition import PCA, KernelPCA
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.gaussian_process import GaussianProcessRegressor
-'''
 import pandas as pd
 import warnings
 
@@ -128,49 +113,19 @@ class SupervisedChemsy():
       kernel = C(1.0, (1e-3, 1e3)) * RBF(10, (1e-2, 1e2))
 
       if recipe=='normal':
-        prep=[StandardScaler(),MinMaxScaler(),RobustScaler(), MaxAbsScaler()]
-        trans=[PowerTransformer(),QuantileTransformer(output_distribution='normal', random_state=0), PCA(n_components='mle'), KernelPCA(kernel='polynomial') , None]
-        model=[svm.SVR(), 
-          DecisionTreeRegressor() ,
-          GaussianProcessRegressor(kernel=kernel,alpha=1, n_restarts_optimizer=10), 
-          PartialLeastSquares(cv=cv), 
-          GradientBoostingRegressor(random_state=random_state),
-          RandomForestRegressor(random_state=random_state),
-          LinearRegression(),
-          KernelRidge(alpha=1.0),
-          MLPRegressor(solver='adam', activation='relu'),
-          KNeighborsRegressor(),
-          Ridge(),
-          ElasticNet(),
-          Lasso(),
-          BayesianRidge()
-          ]
+        recipe={
+        "Preprocess":[StandardScaler(),MinMaxScaler(),RobustScaler(), MaxAbsScaler()],
+        "Transformation":[PowerTransformer(),QuantileTransformer(output_distribution='normal', random_state=0), PCA(n_components='mle'), KernelPCA(kernel='polynomial') , None],
+        "Model":[svm.SVR(), DecisionTreeRegressor(),GaussianProcessRegressor(kernel=kernel,alpha=1, n_restarts_optimizer=10),PartialLeastSquaresCV(),GradientBoostingRegressor(random_state=random_state),RandomForestRegressor(random_state=random_state),LinearRegression(),KernelRidge(alpha=1.0),MLPRegressor(solver='adam', activation='relu'),KNeighborsRegressor(),Ridge(),ElasticNet(),Lasso(),BayesianRidge()]
+        }  
       elif recipe=='spectral':
-        prep=[BaselineASLS(),BaselineModpoly(),BaselineIModPoly(),BaselineZhangFit(),BaselineLinear(), BaselineSecondOrder(),FirstDerivative()]
-        trans=[SavgolFilter(),QuantileTransformer(output_distribution='normal', random_state=0),KernelPCA(kernel='polynomial'),SNV(),MSC()]
-        model=[KernelRidge(alpha=1.0),DecisionTreeRegressor(),PartialLeastSquares(cv=cv),ElasticNet(),Lasso(),KNeighborsRegressor()]
-      elif recipe=='fast_spectral':
-        prep=[BaselineLinear(), BaselineSecondOrder(),FirstDerivative()]
-        trans=[SavgolFilter(), KernelPCA(kernel='polynomial'),SNV(),MSC()]
-        model=[KernelRidge(alpha=1.0),PartialLeastSquares(cv=cv),ElasticNet(),Lasso(),KNeighborsRegressor()]
-      elif recipe=='medium_spectral':
-        prep=[BaselineLinear(), BaselineSecondOrder(),FirstDerivative()]
-        trans=[SavgolFilter(),KernelPCA(kernel='polynomial'),SNV(),MSC()]
-        model=[svm.SVR(), 
-          DecisionTreeRegressor() ,
-          GaussianProcessRegressor(kernel=kernel,alpha=1, n_restarts_optimizer=10), 
-          PartialLeastSquares(cv=cv), 
-          GradientBoostingRegressor(random_state=random_state),
-          RandomForestRegressor(random_state=random_state),
-          LinearRegression(),
-          KernelRidge(alpha=1.0),
-          MLPRegressor(solver='adam', activation='relu'),
-          KNeighborsRegressor(),
-          Ridge(),
-          ElasticNet(),
-          Lasso(),
-          BayesianRidge()
-          ]
+        recipe={
+        "Baseline":[None, BaselineLinear(), BaselineSecondOrder(),FirstDerivative(),SecondDerivative()],
+        "Scattering":[None,SNV(),MSC(),RNV()],
+        "Center":[None,SavgolFilter()],
+        "Scaling":[StandardScaler(),MinMaxScaler(),RobustScaler(), MaxAbsScaler()],
+        "PLS":[PartialLeastSquaresCV()]
+        }
       else:
         pass
 

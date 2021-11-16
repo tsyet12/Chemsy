@@ -24,15 +24,17 @@ class SavgolFilter(TransformerMixin):
       self.window_length=window_length
       self.polyorder=polyorder
       self.axis=axis
+      self.output=None
   def fit(self,X,y=None):
       pass
 
   def transform(self,X,y=None):
-      return savgol_filter(X,window_length=self.window_length,polyorder=self.polyorder,axis=self.axis)
+      self.output=savgol_filter(X,window_length=self.window_length,polyorder=self.polyorder,axis=self.axis)
+      return self.output
 
   def fit_transform(self,X,y=None):
-      return savgol_filter(X,window_length=self.window_length,polyorder=self.polyorder,axis=self.axis)
-
+      self.output=savgol_filter(X,window_length=self.window_length,polyorder=self.polyorder,axis=self.axis)
+      return self.output
 
 class BaselineASLS(TransformerMixin):
   #Asymmetric Least Squares
@@ -42,12 +44,13 @@ class BaselineASLS(TransformerMixin):
       self.p=p
       self.niter=niter
       self.y=None
+      self.output=None
   def fit(self,X,y):
       self.y=y
   def transform(self,X,y=None):
       y=self.y
-      X_=np.apply_along_axis(lambda x: self.line_remove(x), 0, X)        
-      return X_
+      self.output=np.apply_along_axis(lambda x: self.line_remove(x), 0, X)        
+      return self.output
   def line_remove(self,f):
       L = len(f)
       D = sparse.csc_matrix(np.diff(np.eye(L), 2))
@@ -206,22 +209,22 @@ class MSC(BaseEstimator,TransformerMixin):
           X=pd.DataFrame(X)
         except:
           pass
-        mean= np.array(X.mean(axis=0))
+        mean= np.array(X.mean(axis=1))
         def transformMSC(x,mean):
             m,b= np.polyfit(mean,x,1)
             return (x-b)*m
-        return X.apply(transformMSC,args=(mean,),axis=1).values
+        return X.apply(transformMSC,args=(mean,),axis=0).values
 
     def fit_transform(self,X,y=None):
         try:
           X=pd.DataFrame(X)
         except:
           pass
-        self.mean= np.array(X.mean(axis=0))
+        self.mean= np.array(X.mean(axis=1))
         def transformMSC(x,mean):
             m,b= np.polyfit(mean,x,1)
             return (x-b)*m
-        return X.apply(transformMSC,args=(self.mean,),axis=1).values
+        return X.apply(transformMSC,args=(self.mean,),axis=0).values
 
 
 class FirstDerivative(BaseEstimator,TransformerMixin):
@@ -361,3 +364,17 @@ class PartialLeastSquares(BaseEstimator):
           else:
             flag=True
       return self
+
+
+if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+    path=r'C:\Users\User\Downloads\\'
+    data=pd.read_excel(path+'Data1.xlsx',index_col=0)
+    data=data.iloc[:100,:140]
+    data.plot(legend=False)
+    msc=MSC()
+    trans_data=msc.fit_transform(data)
+    trans_data=pd.DataFrame(trans_data)
+    trans_data.plot(legend=False)
+    plt.show()
+
