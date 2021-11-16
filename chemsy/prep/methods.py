@@ -209,22 +209,22 @@ class MSC(BaseEstimator,TransformerMixin):
           X=pd.DataFrame(X)
         except:
           pass
-        mean= np.array(X.mean(axis=1))
+        mean= np.array(X.mean(axis=0))
         def transformMSC(x,mean):
             m,b= np.polyfit(mean,x,1)
             return (x-b)*m
-        return X.apply(transformMSC,args=(mean,),axis=0).values
+        return X.apply(transformMSC,args=(mean,),axis=1).values
 
     def fit_transform(self,X,y=None):
         try:
           X=pd.DataFrame(X)
         except:
           pass
-        self.mean= np.array(X.mean(axis=1))
+        self.mean= np.array(X.mean(axis=0))
         def transformMSC(x,mean):
             m,b= np.polyfit(mean,x,1)
             return (x-b)*m
-        return X.apply(transformMSC,args=(self.mean,),axis=0).values
+        return X.apply(transformMSC,args=(self.mean,),axis=1).values
 
 
 class FirstDerivative(BaseEstimator,TransformerMixin):
@@ -298,16 +298,16 @@ class SNV(BaseEstimator,TransformerMixin):
       pass
     def transform(self,X, y=None):
       try:
-        X=pd.DataFrame(X)
+        X=pd.DataFrame(X).T
       except:
         pass
-      return (X -X.mean(axis=0))/(X.std(axis=0)+0.0000001)
+      return (X -X.mean(axis=0))/(X.std(axis=0)+0.0000001).T
     def fit_transform(self,X,y=None):
       try:
-        X=pd.DataFrame(X)
+        X=pd.DataFrame(X).T
       except:
         pass
-      return (X -X.mean(axis=0))/(X.std(axis=0)+0.0000001)
+      return (X -X.mean(axis=0))/(X.std(axis=0)+0.0000001).T
 class RNV(BaseEstimator,TransformerMixin):
     def __init__(self,q=0.1):
       self.__name__='RNV'
@@ -319,13 +319,13 @@ class RNV(BaseEstimator,TransformerMixin):
         X=pd.DataFrame(X)
       except:
         pass
-      return (X -X.quantile(q=self.q,axis=0))/(X.quantile(q=self.q,axis=0).std(axis=0)+0.0000001)
+      return (X -X.quantile(q=self.q,axis=1))/(X.quantile(q=self.q,axis=1).std(axis=1)+0.0000001)
     def fit_transform(self,X,y=None):
       try:
         X=pd.DataFrame(X)
       except:
         pass
-      return (X -X.quantile(q=self.q,axis=0))/(X.quantile(q=self.q,axis=0).std(axis=0)+0.0000001)
+      return (X -X.quantile(q=self.q,axis=1))/(X.quantile(q=self.q,axis=1).std(axis=1)+0.0000001)
 
 class PartialLeastSquares(BaseEstimator):
   def __init__(self,cv=ShuffleSplit(n_splits=5, test_size=0.2, random_state=999)):
@@ -371,8 +371,8 @@ if __name__ == "__main__":
     path=r'C:\Users\User\Downloads\\'
     data=pd.read_excel(path+'Data1.xlsx',index_col=0)
     data=data.iloc[:100,:140]
-    data.plot(legend=False)
-    msc=MSC()
+    #data.plot(legend=False)
+    msc=SNV()
     trans_data=msc.fit_transform(data)
     trans_data=pd.DataFrame(trans_data)
     trans_data.plot(legend=False)
