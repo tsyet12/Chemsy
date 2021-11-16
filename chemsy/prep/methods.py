@@ -301,15 +301,17 @@ class SNV(BaseEstimator,TransformerMixin):
         X=pd.DataFrame(X)
       except:
         pass
-      X=X.T  
-      return (X -X.mean(axis=0))/(X.std(axis=0)+0.0000001).T
+      X=X.T
+      R=(X -X.mean(axis=0))/(X.std(axis=0)+0.0000001)
+      return R.T
     def fit_transform(self,X,y=None):
       try:
         X=pd.DataFrame(X)
       except:
         pass
       X=X.T
-      return (X -X.mean(axis=0))/(X.std(axis=0)+0.0000001).T
+      R=(X -X.mean(axis=0))/(X.std(axis=0)+0.0000001)
+      return R.T
 class RNV(BaseEstimator,TransformerMixin):
     def __init__(self,q=0.1):
       self.__name__='RNV'
@@ -373,7 +375,7 @@ if __name__ == "__main__":
     path=r'C:\Users\User\Downloads\\'
     data=pd.read_excel(path+'Data1.xlsx',index_col=0)
     data=data.iloc[:100,:140]
-    #data.plot(legend=False)
+    data.plot(legend=False)
     msc=SNV()
     trans_data=msc.fit_transform(data)
     trans_data=pd.DataFrame(trans_data)
