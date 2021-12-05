@@ -45,7 +45,7 @@ class BaselineASLS(TransformerMixin):
       self.niter=niter
       self.y=None
       self.output=None
-  def fit(self,X,y):
+  def fit(self,X,y=None):
       self.y=y
   def transform(self,X,y=None):
       y=self.y
@@ -72,7 +72,7 @@ class BaselineModpoly(BaseEstimator,TransformerMixin):
   def __init__(self, degree=2):
     self.__name__='BaselineModPoly'
     self.degree=degree
-  def fit(self,X,y):
+  def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
     try:
@@ -102,7 +102,7 @@ class BaselineZhangFit(BaseEstimator,TransformerMixin):
   def __init__(self, itermax=50):
     self.__name__='BaselineZhangFit'
     self.itermax=itermax
-  def fit(self,X,y):
+  def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
     try:
@@ -131,7 +131,7 @@ class BaselineIModPoly(BaseEstimator,TransformerMixin):
   def __init__(self, degree=2):
     self.__name__='BaselineImprovedModPoly'
     self.degree=degree
-  def fit(self,X,y):
+  def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
     try:
@@ -159,7 +159,7 @@ class BaselineIModPoly(BaseEstimator,TransformerMixin):
 class BaselineLinear(BaseEstimator,TransformerMixin):
   def __init__(self):
     self.__name__='BaselineLinear'
-  def fit(self,X,y):
+  def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
     try:
@@ -179,7 +179,7 @@ class BaselineSecondOrder(BaseEstimator,TransformerMixin):
   def __init__(self,degree=2):
       self.__name__='BaselineSecondOrder'
       self.degree=degree
-  def fit(self,X,y):
+  def fit(self,X,y=None):
       pass
   def fit_transform(self,X,y=None):
       try:
@@ -202,7 +202,7 @@ class BaselineSecondOrder(BaseEstimator,TransformerMixin):
 class MSC(BaseEstimator,TransformerMixin):
     def __init__(self):
         self.__name__='MSC'
-    def fit(self,X,y):
+    def fit(self,X,y=None):
         pass
     def transform(self,X,y=None):
         try:
@@ -231,7 +231,7 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
     def __init__(self,d=2):
         self.__name__='First Derivative'
         self.d=d
-    def fit(self,X,y):
+    def fit(self,X,y=None):
         pass
     def transform(self,X,y=None): 
         try:
@@ -263,7 +263,7 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
     def __init__(self,d=2):
         self.__name__='Second Derivative'
         self.d=d
-    def fit(self,X,y):
+    def fit(self,X,y=None):
         pass
     def transform(self,X,y=None): 
         try:

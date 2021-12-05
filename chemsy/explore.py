@@ -91,6 +91,7 @@ class SupervisedChemsy():
     def __init__(self,X,y,cv=None,random_state=999,verbose=False, path='./', recipe='normal',solver=None,output_csv=False):
         self.df=None
         self.pbar=None
+        self.pipeline=[]
         self.recipe=recipe
         self.ExploreModel(X,y,cv=None,random_state=999,verbose=False, path='./', recipe=recipe)
         if not verbose:
@@ -100,7 +101,10 @@ class SupervisedChemsy():
         if verbose:
             print(self.df)
         return self.df
-        
+    def get_pipelines(self, verbose=False):
+        if verbose:
+            print(self.pipeline)
+        return self.pipeline    
     def get_recipe(self):
         d={k: get_name_sep(v) for k, v in self.recipe.items()}
         print("\n")
@@ -149,6 +153,7 @@ class SupervisedChemsy():
           feed_list[ii]=recipe_list[ii][int(eval_list[ii])]
         method_name=get_name(feed_list) 
         clf=make_pipeline(*feed_list)
+        self.pipeline.append(clf)
         score=cross_validate(clf, X, y, cv=cv,scoring=scoring_dict)
         score=fix_name(score)
         if self.df is None:
@@ -172,6 +177,8 @@ class SupervisedChemsy():
               print(e)
         '''      
         return score['cross_val_MAE'].mean()
+        
+
 
       def default_solver(model,x,xmin,xmax,*args,**kwargs):
         x_best=None
@@ -210,8 +217,11 @@ class SupervisedChemsy():
       self.df.replace(np.inf,  +999999999999, inplace=True)
       self.df["cross_val_MAE"]=-self.df["cross_val_MAE"]
       self.df["cross_val_MSE"]=-self.df["cross_val_MSE"]
-      self.df.sort_values(by=["cross_val_MAE"])
-      self.df=self.df.sort_values(by=["cross_val_R2"],ascending=False)
+
+      temp=pd.concat([self.df,pd.DataFrame(self.pipeline, columns=['pipeline'],index=self.df.index)],axis=1)
+      temp=temp.sort_values(by=["cross_val_MAE"],ascending=False)
+      self.pipeline=temp['pipeline']
+      self.df=temp.drop(columns='pipeline')
       if output_csv:
         self.df.to_csv(path+'results.csv')
       return self.df
@@ -222,7 +232,11 @@ if __name__ == "__main__":
     custom_recipe= {
     "Level 1":[SavgolFilter(),StandardScaler(),MinMaxScaler(),RobustScaler()],
     "Level 2":[PowerTransformer(),QuantileTransformer(output_distribution='normal', random_state=0), PCA(n_components='mle')],
-    "Level 3":[PartialLeastSquares()]
+    "Level 3":[PartialLeastSquaresCV()]
     }
     solutions=SupervisedChemsy(X, Y,recipe=custom_recipe)
     solutions.get_results()
+    pipeline=solutions.get_pipelines()
+    
+    print(pipeline)
+
