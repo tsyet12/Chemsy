@@ -219,7 +219,7 @@ class SupervisedChemsy():
       self.df["cross_val_MSE"]=-self.df["cross_val_MSE"]
 
       temp=pd.concat([self.df,pd.DataFrame(self.pipeline, columns=['pipeline'],index=self.df.index)],axis=1)
-      temp=temp.sort_values(by=["cross_val_MAE"],ascending=False)
+      temp=temp.sort_values(by=["cross_val_MAE"],ascending=True)
       self.pipeline=temp['pipeline']
       self.df=temp.drop(columns='pipeline')
       if output_csv:
