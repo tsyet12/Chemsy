@@ -25,6 +25,9 @@ class SavgolFilter(TransformerMixin):
       self.polyorder=polyorder
       self.axis=axis
       self.output=None
+      
+  def __repr__(self):
+      return self.__class__.__name__+'()'   
   def fit(self,X,y=None):
       pass
 
@@ -35,6 +38,8 @@ class SavgolFilter(TransformerMixin):
   def fit_transform(self,X,y=None):
       self.output=savgol_filter(X,window_length=self.window_length,polyorder=self.polyorder,axis=self.axis)
       return self.output
+      
+  
 
 class BaselineASLS(TransformerMixin):
   #Asymmetric Least Squares
@@ -45,6 +50,9 @@ class BaselineASLS(TransformerMixin):
       self.niter=niter
       self.y=None
       self.output=None
+      
+  def __repr__(self):
+      return self.__class__.__name__+'()'  
   def fit(self,X,y=None):
       self.y=y
   def transform(self,X,y=None):
@@ -72,6 +80,8 @@ class BaselineModpoly(BaseEstimator,TransformerMixin):
   def __init__(self, degree=2):
     self.__name__='BaselineModPoly'
     self.degree=degree
+  def __repr__(self):
+    return self.__class__.__name__+'()'   
   def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
@@ -102,6 +112,8 @@ class BaselineZhangFit(BaseEstimator,TransformerMixin):
   def __init__(self, itermax=50):
     self.__name__='BaselineZhangFit'
     self.itermax=itermax
+  def __repr__(self):
+    return self.__class__.__name__+'()' 
   def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
@@ -131,6 +143,8 @@ class BaselineIModPoly(BaseEstimator,TransformerMixin):
   def __init__(self, degree=2):
     self.__name__='BaselineImprovedModPoly'
     self.degree=degree
+  def __repr__(self):
+    return self.__class__.__name__+'()'  
   def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
@@ -159,6 +173,8 @@ class BaselineIModPoly(BaseEstimator,TransformerMixin):
 class BaselineLinear(BaseEstimator,TransformerMixin):
   def __init__(self):
     self.__name__='BaselineLinear'
+  def __repr__(self):
+    return self.__class__.__name__+'()'  
   def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
@@ -179,6 +195,9 @@ class BaselineSecondOrder(BaseEstimator,TransformerMixin):
   def __init__(self,degree=2):
       self.__name__='BaselineSecondOrder'
       self.degree=degree
+  def __repr__(self):
+      return self.__class__.__name__+'()' 
+  
   def fit(self,X,y=None):
       pass
   def fit_transform(self,X,y=None):
@@ -202,6 +221,8 @@ class BaselineSecondOrder(BaseEstimator,TransformerMixin):
 class MSC(BaseEstimator,TransformerMixin):
     def __init__(self):
         self.__name__='MSC'
+    def __repr__(self):
+        return self.__class__.__name__+'()'    
     def fit(self,X,y=None):
         pass
     def transform(self,X,y=None):
@@ -231,6 +252,9 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
     def __init__(self,d=2):
         self.__name__='First Derivative'
         self.d=d
+    def __repr__(self):
+        return self.__class__.__name__+'()'    
+    
     def fit(self,X,y=None):
         pass
     def transform(self,X,y=None): 
@@ -263,6 +287,8 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
     def __init__(self,d=2):
         self.__name__='Second Derivative'
         self.d=d
+    def __repr__(self):
+        return self.__class__.__name__+'()'  
     def fit(self,X,y=None):
         pass
     def transform(self,X,y=None): 
@@ -294,6 +320,8 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
 class SNV(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='SNV'
+    def __repr__(self):
+        return self.__class__.__name__+'()' 
     def fit(self,spc):
       pass
     def transform(self,X, y=None):
@@ -316,6 +344,8 @@ class RNV(BaseEstimator,TransformerMixin):
     def __init__(self,q=0.1):
       self.__name__='RNV'
       self.q=q
+    def __repr__(self):
+      return self.__class__.__name__+'()'
     def fit(self,spc):
       pass
     def transform(self,X, y=None):
@@ -330,12 +360,14 @@ class RNV(BaseEstimator,TransformerMixin):
       except:
         pass
       return (X -X.quantile(q=self.q,axis=1))/(X.quantile(q=self.q,axis=1).std(axis=1)+0.0000001)
-
+'''
 class PartialLeastSquares(BaseEstimator):
   def __init__(self,cv=ShuffleSplit(n_splits=5, test_size=0.2, random_state=999)):
       self.__name__='PLS_CV'
       self.cv=cv
       self.model=None
+  def __repr__(self):
+      return self.__class__.__name__ + ' ' + self.device  
   def predict(self, X, y=None):
       try:
         X=pd.DataFrame(X)
@@ -368,10 +400,11 @@ class PartialLeastSquares(BaseEstimator):
           else:
             flag=True
       return self
-
+'''
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
+    print(BaselineASLS())
     path=r'C:\Users\User\Downloads\\'
     data=pd.read_excel(path+'Data1.xlsx',index_col=0)
     data=data.iloc[:100,:140]

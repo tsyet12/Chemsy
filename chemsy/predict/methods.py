@@ -23,6 +23,9 @@ class PartialLeastSquaresCV(BaseEstimator):
       self.scoring=scoring
       self.epsilon=epsilon
       self.max_lv=max_lv
+      
+  def __repr__(self):
+      return self.__class__.__name__+'()'     
   def predict(self, X, y=None):
       try:
         X=pd.DataFrame(X)
