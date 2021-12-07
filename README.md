@@ -53,6 +53,16 @@ see_methods(chemsy.prep.methods)
 # see what prediction methods are available
 see_methods(chemsy.predict.methods)
 ```
+Return:
+```
+Preprocessing method supported:
+['BaselineASLS', 'BaselineIModPoly', 'BaselineLinear', 'BaselineModpoly', 'BaselineSecondOrder', 'BaselineZhangFit', 'FirstDerivative', 'FunctionTransformer', 'KernelPCA', 'MSC', 'MaxAbsScaler', 'MinMaxScaler', 'PCA', 'PLSRegression', 'PartialLeastSquares', 'PowerTransformer', 'QuantileTransformer', 'RNV', 'RobustScaler', 'SNV', 'SavgolFilter', 'SecondDerivative', 'StandardScaler']
+
+Prediction method supported:
+['BayesianRidge', 'DecisionTreeRegressor', 'ElasticNet', 'GaussianProcessRegressor', 'GradientBoostingRegressor', 'KNeighborsRegressor', 'KernelRidge', 'Lasso', 'LinearRegression', 'MLPRegressor', 'PLSRegression', 'PartialLeastSquaresCV', 'RandomForestRegressor', 'Ridge']
+
+```
+
 
 <!-- GETTING STARTED -->
 ## Getting Started
