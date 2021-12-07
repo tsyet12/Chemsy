@@ -88,7 +88,7 @@ X, Y = load_diabetes(return_X_y=True)
 ```
 
 2. Make a custom recipe
-```
+```python
 # Make a custom recipe for the method search, all combinations will be evaluated
 custom_recipe= {
 "Level 0":[None],
@@ -99,7 +99,7 @@ custom_recipe= {
 ```
 
 3. Search pre-processing methods 
-```
+```python
 # Search pre-processing methods and all combinations
 solutions=SupervisedChemsy(X, Y,recipe=custom_recipe)
 
@@ -115,14 +115,14 @@ Return:
 | StandardScaler + PCA + Lasso                                 | 0.00312543 |  0.00111251  |         43.3569 |         2832.88 |      0.510979  |        0.908942 |
 | RobustScaler + PCA + PartialLeastSquaresCV                   | 0.221452   |  0.00257006  |         43.3624 |         2832.27 |      0.51107   |        0.871943 |
 | StandardScaler + PowerTransformer + PartialLeastSquaresCV    | 0.201116   |  0.00330443  |         43.8542 |         2883.86 |      0.502165  |        0.922369 |
-| ⋮  | ⋮   |    |         ⋮ |         ⋮ |      ⋮  |        ⋮ |
+| ⋮  | ⋮   |   ⋮ |         ⋮ |         ⋮ |      ⋮  |        ⋮ |
 
 
 ## Installation
 
 ### Install on [`Google Colab`](https://colab.research.google.com):
 In a Colab code block:
-```python
+```bat
 !pip install git+https://github.com/tsyet12/Chemsy --quiet
 ```
 
