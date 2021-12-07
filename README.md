@@ -42,6 +42,18 @@ Automatic pre-processing search with support for:
 - Min Max Scaler
 - Any other algorithms with sklearn syntax can be used directly
 
+To see what are the most updates algorithms available:
+```python
+import chemsy
+from chemsy.help import see_methods
+
+# see what preprocessing methods are available
+see_methods(chemsy.prep.methods)
+
+# see what prediction methods are available
+see_methods(chemsy.predict.methods)
+```
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
