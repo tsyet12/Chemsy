@@ -6,12 +6,8 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [About the Project](#about-the-project)
-* This project is to make a lightweight and flexible automatic framework for chemometrics and machine learning. The main target for the methods are for spectroscopic data and industrial process data analysis. Chemsy provides a structured, customizable and minimalistic framework for automatic pre-processing search.
-* 
-  * [Current support for algorithms](#current-support-for-algorithms)
-
-
+* [About the Project](#about-the-project)* 
+* [Current support for algorithms](#current-support-for-algorithms)
 * [Getting Started](#getting-started)
   * [Dependencies](#dependencies)
   * [Installation](#installation)
@@ -24,8 +20,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-
+This project is to make a lightweight and flexible automatic framework for chemometrics and machine learning. The main target for the methods are for spectroscopic data and industrial process data analysis. Chemsy provides a structured, customizable and minimalistic framework for automatic pre-processing search.
 
 ## Current support for algorithms
 
