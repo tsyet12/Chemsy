@@ -27,7 +27,7 @@ This project is to make a lightweight and flexible automatic framework for chemo
 Automatic pre-processing search with support for:
 - Partial Least Squares with Cross Validation
 - Savitzky–Golay filter
-- AsLS Baseline Correction
+- Asymmetric Least Squares (AsLS) Baseline Correction
 - Modified Polynomial Baseline Correction
 - Improved Modified Polynomial Baseline Correction
 - Zhang Fit Baseline Correction
