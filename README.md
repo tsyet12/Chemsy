@@ -47,9 +47,9 @@ To be updated.
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b testbranch/solvers`)
-3. Commit your Changes (`git commit -m 'Improve testbranch/solvers'`)
-4. Push to the Branch (`git push origin testbranch/solvers`)
+2. Create your Feature Branch (`git checkout -b testbranch/prep`)
+3. Commit your Changes (`git commit -m 'Improve testbranch/prep'`)
+4. Push to the Branch (`git push origin testbranch/prep`)
 5. Open a Pull Request
 
 
