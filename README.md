@@ -1,6 +1,6 @@
 # Chemsy - A Minimalistic Automatic Framework for Chemometrics and Machine Learning
 
-![Chemsy Logo](https://github.com/tsyet12/Chemsy/blob/ba5ebe1e103cbbd5afccde6502f1449175529dc6/misc/logo.png)
+![Chemsy Logo](https://github.com/tsyet12/Chemsy/blob/d46d0f8c1ab0b372b4684937d478ca6deaeba341/misc/wlogo.jpg)
 
 
 <!-- TABLE OF CONTENTS -->
