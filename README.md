@@ -6,7 +6,7 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [About the Project](#about-the-project)* 
+* [About the Project](#about-the-project)
 * [Current support for algorithms](#current-support-for-algorithms)
 * [Getting Started](#getting-started)
   * [Dependencies](#dependencies)
