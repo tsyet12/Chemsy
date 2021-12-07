@@ -114,25 +114,7 @@ Return:
 | StandardScaler + PCA + Lasso                                 | 0.00312543 |  0.00111251  |         43.3569 |         2832.88 |      0.510979  |        0.908942 |
 | RobustScaler + PCA + PartialLeastSquaresCV                   | 0.221452   |  0.00257006  |         43.3624 |         2832.27 |      0.51107   |        0.871943 |
 | StandardScaler + PowerTransformer + PartialLeastSquaresCV    | 0.201116   |  0.00330443  |         43.8542 |         2883.86 |      0.502165  |        0.922369 |
-| RobustScaler + PowerTransformer + PartialLeastSquaresCV      | 0.205665   |  0.00339861  |         43.8731 |         2885.57 |      0.501871  |        0.925456 |
-| MinMaxScaler + PowerTransformer + PartialLeastSquaresCV      | 0.207717   |  0.00376263  |         43.8793 |         2886.62 |      0.501692  |        0.913203 |
-| RobustScaler + PCA + Lasso                                   | 0.00443821 |  0.000947857 |         43.9422 |         2868.85 |      0.504742  |        1.22346  |
-| StandardScaler + PowerTransformer + Lasso                    | 0.0244179  |  0.00203629  |         44.2158 |         2911.23 |      0.49731   |        1.27553  |
-| RobustScaler + PowerTransformer + Lasso                      | 0.025683   |  0.00173001  |         44.2366 |         2913.06 |      0.496988  |        1.28165  |
-| MinMaxScaler + PowerTransformer + Lasso                      | 0.0320802  |  0.00213027  |         44.2526 |         2915.29 |      0.496592  |        1.28109  |
-| RobustScaler + QuantileTransformer + PartialLeastSquaresCV   | 0.209099   |  0.00946445  |         44.9962 |         2979.41 |      0.486111  |        0.985491 |
-| MinMaxScaler + QuantileTransformer + PartialLeastSquaresCV   | 0.207131   |  0.00927935  |         44.9968 |         2979.54 |      0.486091  |        0.984019 |
-| StandardScaler + QuantileTransformer + PartialLeastSquaresCV | 0.201937   |  0.00911026  |         44.9971 |         2979.49 |      0.486097  |        0.986858 |
-| MinMaxScaler + PCA + Lasso                                   | 0.00237641 |  0.000942993 |         45.0336 |         3013.84 |      0.479011  |        1.28565  |
-| RobustScaler + QuantileTransformer + Lasso                   | 0.0161179  |  0.00758591  |         45.2021 |         2989.94 |      0.483484  |        1.46429  |
-| MinMaxScaler + QuantileTransformer + Lasso                   | 0.0134507  |  0.0075232   |         45.2027 |         2990.07 |      0.483464  |        1.46294  |
-| StandardScaler + QuantileTransformer + Lasso                 | 0.0138698  |  0.00747972  |         45.2037 |         2990.1  |      0.483459  |        1.4657   |
-| MSC + PowerTransformer + PartialLeastSquaresCV               | 0.389996   |  0.0579424   |         63.8723 |         5962.2  |     -0.0291604 |       -2.21014  |
-| MSC + PowerTransformer + Lasso                               | 0.244706   |  0.0584606   |         64.7382 |         6155.79 |     -0.0650035 |       -3.12385  |
-| MSC + QuantileTransformer + Lasso                            | 0.231418   |  0.0727204   |         65.0553 |         6172.64 |     -0.0667151 |       -0.783697 |
-| MSC + PCA + PartialLeastSquaresCV                            | 0.314129   |  0.0510806   |         65.7188 |         6031.59 |     -0.0421737 |        3.18991  |
-| MSC + PCA + Lasso                                            | 0.205683   |  0.0513979   |         65.7989 |         6071.98 |     -0.0493179 |        2.92994  |
-| MSC + QuantileTransformer + PartialLeastSquaresCV            | 0.336759   |  0.0603037   |         66.0683 |         6172.09 |     -0.0666824 |        3.56341  |
+| ⋮  | ⋮   |    |         ⋮ |         ⋮ |      ⋮  |        ⋮ |
 
 
 ## Installation
