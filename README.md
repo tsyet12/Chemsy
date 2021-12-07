@@ -20,12 +20,27 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-This project is to make a lightweight and flexible automatic framework for chemometrics and machine learning. The main target for the methods are for spectroscopic data and industrial process data analysis. Chemsy provides a structured, customizable and minimalistic framework for automatic pre-processing search.
+This project is to make a lightweight and flexible automatic framework for chemometrics and machine learning. The main target for the methods are for spectroscopic data and industrial process data analysis. Chemsy provides a structured, customizable and minimalistic framework for automatic pre-processing search. The syntax of Chemsy also follows the widely-used sklearn library, and any algorithms/method that has the sklearn syntax will be usable in Chemsy.
 
 ## Current support for algorithms
 
- 
-
+Automatic pre-processing search with support for:
+- Partial Least Squares with Cross Validation
+- Savitzky–Golay filter
+- AsLS Baseline Correction
+- Modified Polynomial Baseline Correction
+- Improved Modified Polynomial Baseline Correction
+- Zhang Fit Baseline Correction
+- Linear Baseline Correction
+- Second Order Baseline Correction
+- Multiplicative Scatter Correction
+- First Derivative
+- Second Derivative
+- Standard Normal Variate
+- Robust Normal Variate
+- Standard Scaler/ Autoscaling
+- Min Max Scaler
+- Any other algorithms with sklearn syntax can be used directly
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -76,4 +91,4 @@ Sin Yong Teng: sinyong.teng@ru.nl or tsyet12@gmail.com
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-Martijn Dingeman martijn.dingemans@gmail.com
+Martijn Dingemans martijn.dingemans@gmail.com
