@@ -107,7 +107,7 @@ solutions=SupervisedChemsy(X, Y,recipe=custom_recipe)
 solutions.get_results(verbose=False)
 ```
 Return:
-```
+
 | Methods                                                      |   fit_time |   score_time |   cross_val_MAE |   cross_val_MSE |   cross_val_R2 |   cross_val_MBE |
 |:-------------------------------------------------------------|-----------:|-------------:|----------------:|----------------:|---------------:|----------------:|
 | StandardScaler + PCA + PartialLeastSquaresCV                 | 0.177647   |  0.00294271  |         43.1078 |         2816.97 |      0.513709  |        0.72431  |
@@ -116,7 +116,7 @@ Return:
 | RobustScaler + PCA + PartialLeastSquaresCV                   | 0.221452   |  0.00257006  |         43.3624 |         2832.27 |      0.51107   |        0.871943 |
 | StandardScaler + PowerTransformer + PartialLeastSquaresCV    | 0.201116   |  0.00330443  |         43.8542 |         2883.86 |      0.502165  |        0.922369 |
 | ⋮  | ⋮   |    |         ⋮ |         ⋮ |      ⋮  |        ⋮ |
-```
+
 
 ## Installation
 
