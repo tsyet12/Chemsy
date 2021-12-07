@@ -68,7 +68,7 @@ Prediction method supported:
 ## Getting Started
 
 ### Quick evaluation on Google Colab:
-For quickstart/evaluation of the functionality, see **[`this colab`](https://colab.research.google.com/drive/19_nPiAOQN9o5kxnXBjYqDvgEGhbZGD2K?usp=sharing)** notebook online.
+For quickstart/evaluation of the functionality, see **[`this Google Colab`](https://colab.research.google.com/drive/19_nPiAOQN9o5kxnXBjYqDvgEGhbZGD2K?usp=sharing)** notebook online.
 
 ### Quick functionality in 3 Steps:
 
@@ -120,8 +120,8 @@ Return:
 
 ## Installation
 
-### Install on [`Google Colab`](https://colab.research.google.com):
-In a Colab code block:
+### Install on Google Colab:
+In a [`Colab`](https://colab.research.google.com) code block:
 ```bat
 !pip install git+https://github.com/tsyet12/Chemsy --quiet
 ```
