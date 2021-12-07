@@ -33,9 +33,10 @@ This project is to make a lightweight and flexible automatic framework for chemo
 
 ## Installation
 
+# Quick evaluation on Google Colab:
 For quickstart/evaluation of the functionality, see [`this colab`](https://colab.research.google.com/drive/19_nPiAOQN9o5kxnXBjYqDvgEGhbZGD2K?usp=sharing) notebook online.
 
-
+# Install on local python environment:
 In a environment terminal or CMD:
 ```bat
 pip install git+https://github.com/tsyet12/Chemsy --quiet
