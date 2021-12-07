@@ -32,7 +32,9 @@ This project is to make a lightweight and flexible automatic framework for chemo
 
 
 ## Installation
-
+```bat
+pip install git+https://github.com/tsyet12/Chemsy --quiet
+```
 
 
 <!-- USAGE EXAMPLES -->
