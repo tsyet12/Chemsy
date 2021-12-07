@@ -68,7 +68,7 @@ Prediction method supported:
 ## Getting Started
 
 ### Quick evaluation on Google Colab:
-For quickstart/evaluation of the functionality, see [`this colab`](https://colab.research.google.com/drive/19_nPiAOQN9o5kxnXBjYqDvgEGhbZGD2K?usp=sharing) notebook online.
+For quickstart/evaluation of the functionality, see **[`this colab`](https://colab.research.google.com/drive/19_nPiAOQN9o5kxnXBjYqDvgEGhbZGD2K?usp=sharing)** notebook online.
 
 ### Quick functionality in 3 Steps:
 
