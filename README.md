@@ -38,7 +38,7 @@ Automatic pre-processing search with support for:
 - Second Derivative
 - Standard Normal Variate
 - Robust Normal Variate
-- Standard Scaler/ Autoscaling
+- Standard Scaler (also known as Autoscaling)
 - Min Max Scaler
 - Any other algorithms with sklearn syntax can be used directly
 
