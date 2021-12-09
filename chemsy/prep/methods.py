@@ -540,6 +540,22 @@ class RangeScaling(BaseEstimator,TransformerMixin):
       self.fit(X)
       return self.transform(X)
 
+class LogTransform(BaseEstimator,TransformerMixin):
+    def __init__(self):
+      self.__name__='LogTransform'
+    def __repr__(self):
+      return self.__class__.__name__+'()'
+    def fit(self,X,y=None):
+      pass
+    def transform(self,X, y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return pd.DataFrame(np.log(np.abs(np.asarray(X)+1))) #absolute to remove negative
+    def fit_transform(self,X,y=None):
+      self.fit(X)
+      return self.transform(X)
       
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
