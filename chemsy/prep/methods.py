@@ -513,7 +513,34 @@ class LevelScaling(BaseEstimator,TransformerMixin):
       return pd.DataFrame(np.divide(np.asarray(X)-np.asarray(self.mean),np.asarray(self.mean)))
     def fit_transform(self,X,y=None):
       self.fit(X)
-      return self.transform(X)       
+      return self.transform(X)  
+class RangeScaling(BaseEstimator,TransformerMixin):
+    def __init__(self):
+      self.__name__='RangeScaling'
+      self.max=0
+      self.min=0
+      self.mean=0
+    def __repr__(self):
+      return self.__class__.__name__+'()'
+    def fit(self,X,y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      self.max=X.max(axis=0)
+      self.min=X.min(axis=0)
+      self.mean=X.mean(axis=0)
+    def transform(self,X, y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return pd.DataFrame(np.divide(np.asarray(X)-np.asarray(self.mean),np.asarray(self.max)-np.asarray(self.min)))
+    def fit_transform(self,X,y=None):
+      self.fit(X)
+      return self.transform(X)
+
+      
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
     
