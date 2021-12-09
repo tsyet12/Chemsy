@@ -12,7 +12,8 @@ from sklearn.model_selection import ShuffleSplit
 from scipy.sparse.linalg import spsolve
 
 #Import prep methods
-from sklearn.preprocessing import StandardScaler, MinMaxScaler,MaxAbsScaler, RobustScaler, normalize
+import sklearn
+from sklearn.preprocessing import StandardScaler, MinMaxScaler,MaxAbsScaler, RobustScaler
 from sklearn.preprocessing import FunctionTransformer, PowerTransformer, QuantileTransformer
 from sklearn.decomposition import PCA, KernelPCA
    
@@ -556,6 +557,24 @@ class LogTransform(BaseEstimator,TransformerMixin):
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X)
+
+class L2NormScaling(BaseEstimator,TransformerMixin):
+    def __init__(self):
+      self.__name__='L2NormScaling'
+    def __repr__(self):
+      return self.__class__.__name__+'()'
+    def fit(self,X,y=None):
+      pass
+    def transform(self,X, y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return pd.DataFrame(sklearn.preprocessing.normalize(X,norm='l2')) 
+    def fit_transform(self,X,y=None):
+      self.fit(X)
+      return self.transform(X)
+
       
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
