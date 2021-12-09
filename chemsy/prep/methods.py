@@ -12,7 +12,7 @@ from sklearn.model_selection import ShuffleSplit
 from scipy.sparse.linalg import spsolve
 
 #Import prep methods
-from sklearn.preprocessing import StandardScaler, MinMaxScaler,MaxAbsScaler, RobustScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler,MaxAbsScaler, RobustScaler, normalize
 from sklearn.preprocessing import FunctionTransformer, PowerTransformer, QuantileTransformer
 from sklearn.decomposition import PCA, KernelPCA
    
@@ -360,58 +360,176 @@ class RNV(BaseEstimator,TransformerMixin):
       except:
         pass
       return (X -X.quantile(q=self.q,axis=1))/(X.quantile(q=self.q,axis=1).std(axis=1)+0.0000001)
-'''
-class PartialLeastSquares(BaseEstimator):
-  def __init__(self,cv=ShuffleSplit(n_splits=5, test_size=0.2, random_state=999)):
-      self.__name__='PLS_CV'
-      self.cv=cv
-      self.model=None
-  def __repr__(self):
-      return self.__class__.__name__ + ' ' + self.device  
-  def predict(self, X, y=None):
+      
+class MeanScaling(BaseEstimator,TransformerMixin):
+    def __init__(self):
+      self.__name__='MeanScaling'
+      self.mean=0
+    def __repr__(self):
+      return self.__class__.__name__+'()'
+    def fit(self,X,y=None):
       try:
         X=pd.DataFrame(X)
       except:
         pass
-      return self.model.predict(X)
-    
-  def fit(self,X,y=None):
+      self.mean=X.mean(axis=0)
+    def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
-        y=pd.DataFrame(y)
       except:
         pass
+      return pd.DataFrame(np.divide(np.asarray(X),np.asarray(self.mean)))
+    def fit_transform(self,X,y=None):
+      self.fit(X)
+      return self.transform(X) 
+      
+class MedianScaling(BaseEstimator,TransformerMixin):
+    def __init__(self):
+      self.__name__='MedianScaling'
+      self.median=0
+    def __repr__(self):
+      return self.__class__.__name__+'()'
+    def fit(self,X,y=None):
       try:
-        y=y.to_frame()
+        X=pd.DataFrame(X)
       except:
         pass
-      max=min(X.shape[0], X.shape[1], y.shape[1])
-      hist_score=-np.inf
-      flag=False
-      for i in range(1,max+1):
-        if flag==False:
-          model=PLSRegression(n_components=i,scale=False)
-          model.fit(X,y)
-          cv_score=cross_validate(model, X, y, cv=self.cv,scoring='r2')['test_score'].mean()
-          if cv_score>hist_score:
-            self.model=model
-            self.__name__='PLS (n = '+str(i)+')'
-            hist_score=cv_score
-          else:
-            flag=True
-      return self
-'''
+      self.median=X.median(axis=0)
+    def transform(self,X, y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return pd.DataFrame(np.divide(np.asarray(X),np.asarray(self.median)))
+    def fit_transform(self,X,y=None):
+      self.fit(X)
+      return self.transform(X) 
+class MaxScaling(BaseEstimator,TransformerMixin):
+    def __init__(self):
+      self.__name__='MaxScaling'
+      self.max=0
+    def __repr__(self):
+      return self.__class__.__name__+'()'
+    def fit(self,X,y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      self.max=X.max(axis=0)
+    def transform(self,X, y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return pd.DataFrame(np.divide(np.asarray(X),np.asarray(self.max)))
+    def fit_transform(self,X,y=None):
+      self.fit(X)
+      return self.transform(X)
+      
+class MeanCentering(BaseEstimator,TransformerMixin):
+    def __init__(self):
+      self.__name__='MeanCentering'
+      self.mean=0
+    def __repr__(self):
+      return self.__class__.__name__+'()'
+    def fit(self,X,y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      self.mean=X.mean(axis=0)
+    def transform(self,X, y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return pd.DataFrame(np.asarray(X)-np.asarray(self.max))
+    def fit_transform(self,X,y=None):
+      self.fit(X)
+      return self.transform(X) 
 
+class PoissonScaling(BaseEstimator,TransformerMixin):
+    def __init__(self):
+      self.__name__='PoissonScaling'
+      self.mean=0
+    def __repr__(self):
+      return self.__class__.__name__+'()'
+    def fit(self,X,y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      self.mean=X.mean(axis=0)
+    def transform(self,X, y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return pd.DataFrame(np.divide(np.asarray(X),np.sqrt(np.asarray(self.mean))))
+    def fit_transform(self,X,y=None):
+      self.fit(X)
+      return self.transform(X) 
+
+
+class ParetoScaling(BaseEstimator,TransformerMixin):
+    def __init__(self):
+      self.__name__='ParetoScaling'
+      self.std=0
+    def __repr__(self):
+      return self.__class__.__name__+'()'
+    def fit(self,X,y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      self.std=X.std(axis=0)
+    def transform(self,X, y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return pd.DataFrame(np.divide(np.asarray(X),np.sqrt(np.asarray(self.std))))
+    def fit_transform(self,X,y=None):
+      self.fit(X)
+      return self.transform(X) 
+
+class LevelScaling(BaseEstimator,TransformerMixin):
+    def __init__(self):
+      self.__name__='LevelScaling'
+      self.mean=0
+    def __repr__(self):
+      return self.__class__.__name__+'()'
+    def fit(self,X,y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      self.mean=X.mean(axis=0)
+    def transform(self,X, y=None):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      return pd.DataFrame(np.divide(np.asarray(X)-np.asarray(self.mean),np.asarray(self.mean)))
+    def fit_transform(self,X,y=None):
+      self.fit(X)
+      return self.transform(X)       
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
-    print(BaselineASLS())
+    
     path=r'C:\Users\User\Downloads\\'
     data=pd.read_excel(path+'Data1.xlsx',index_col=0)
     data=data.iloc[:100,:140]
+    ms=ParetoScaling()
+    data1=ms.fit_transform(data)
+
+    #data1.plot()
+    '''
     data.plot(legend=False)
     msc=SNV()
     trans_data=msc.fit_transform(data)
     trans_data=pd.DataFrame(trans_data)
     trans_data.plot(legend=False)
-    plt.show()
+    '''
+    #plt.show()
 
