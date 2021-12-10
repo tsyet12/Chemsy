@@ -22,6 +22,11 @@
 ## About The Project
 This project is to make a lightweight and flexible automatic framework for chemometrics and machine learning. The main target for the methods are for spectroscopic data and industrial process data analysis. Chemsy provides a structured, customizable and minimalistic framework for automatic pre-processing search. The syntax of Chemsy also follows the widely-used sklearn library, and any algorithms/method that has the sklearn syntax will be usable in Chemsy. Chemsy supports freedom, open source and software accessability for all chemometricians, machine learning engineers and data scientists.
 
+Chemsy serves as a framework for automatic pre-processing and modelling:
+
+![Chemsy Framework](https://github.com/tsyet12/Chemsy/blob/aa178c6369e8ef53d46fc0cfcfce0387b6bfa8c4/misc/Framework.png)
+
+
 ## Current support for algorithms
 
 Automatic pre-processing search with support for:
@@ -137,7 +142,23 @@ pip install git+https://github.com/tsyet12/Chemsy --quiet
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-To be updated.
+A recipe from Engel et al. (2013) for spectroscopic IR data:
+```python
+Engel_2013= {
+"Baseline":[None, BaselineSecondOrder(),BaselineSecondOrder(degree=3),BaselineSecondOrder(degree=4),BaselineASLS(),FirstDerivative(),SecondDerivative()],
+"Scatter":[None, MeanScaling(), MedianScaling(),MaxScaling(),L2NormScaling(),RNV(q=0.15),RNV(q=0.25),RNV(q=0.35),MSC()],
+"Noise":[None, SavgolFilter(5,2),SavgolFilter(9,2),SavgolFilter(11,2),SavgolFilter(5,3),SavgolFilter(9,3),SavgolFilter(11,3),SavgolFilter(5,4),SavgolFilter(9,4),SavgolFilter(11,4)],
+"Scaling & Transformations":[MeanCentering(),StandardScaler(),RangeScaling(),ParetoScaling,PoissonScaling(),LevelScaling(), ],
+"PLS":[PartialLeastSquaresCV()]
+}
+
+```
+Recipe reference:
+
+Engel, J., Gerretzen, J., Szymańska, E., Jansen, J.J., Downey, G., Blanchet, L. and Buydens, L.M., 2013. Breaking with trends in pre-processing?. TrAC Trends in Analytical Chemistry, 50, pp.96-106.https://www.sciencedirect.com/science/article/pii/S0165993613001465
+
+
+More to be updated.
 
 
 <!-- CONTRIBUTING -->
