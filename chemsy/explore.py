@@ -93,7 +93,7 @@ class SupervisedChemsy():
         self.pbar=None
         self.pipeline=[]
         self.recipe=recipe
-        self.ExploreModel(X,y,cv=None,random_state=999,verbose=False, path='./', recipe=recipe)
+        self.ExploreModel(X,y,cv=cv,random_state=999,verbose=False, path='./', recipe=recipe)
         if not verbose:
             warnings.filterwarnings("ignore")
         self.pbar.refresh()
@@ -232,7 +232,7 @@ class ClassifyChemsy():
         self.pbar=None
         self.pipeline=[]
         self.recipe=recipe
-        self.ExploreModel(X,y,cv=None,random_state=999,verbose=False, path='./', recipe=recipe)
+        self.ExploreModel(X,y,cv=cv,random_state=999,verbose=False, path='./', recipe=recipe)
         if not verbose:
             warnings.filterwarnings("ignore")
         self.pbar.refresh()
