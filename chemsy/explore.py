@@ -145,6 +145,7 @@ class SupervisedChemsy():
       print('\033[1m' +'Total Model Search Space= ' + str(n_space))
       self.pbar = tqdm(total=n_space,leave=True,position=0)
       
+
       
       def model_optimize(eval_list):
         feed_list=[0]*len(recipe_list)
@@ -187,24 +188,27 @@ class SupervisedChemsy():
         converge=False
         flag=False
         y=-np.inf
+        i=1
+        
         while not converge:
-          
+          y=model(x_guess)
           if y<y_best:
-            y=model(x_guess)
             y_best=y
             x_best=x
           #full design
-          if flag==True:
-            converge=True
           g=0
+          flag=np.array_equal(x_guess,xmax) 
           while g<len(xmin):
             if x_guess[g]<xmax[g]:
               x_guess[g]=x_guess[g]+1
               x_guess[:g]=np.zeros_like(x_guess[:g])
-              g=999999999 #escape
+              g=+np.inf #escape
             else:
               g=g+1 #iterate
-          flag=np.array_equal(x_guess,xmax)      
+          
+          if flag==True:
+            converge=True
+          i=i+1
         return x_best, y_best
 
       
@@ -280,6 +284,7 @@ class ClassifyChemsy():
       recipe_list=list(recipe.values())
       block_names=list(recipe.keys())
       structure_list=[]
+      
       for element in recipe_list:
         structure_list.append(len(element)-1)
       n_space=np.prod(np.asarray(structure_list)+1)
@@ -328,24 +333,27 @@ class ClassifyChemsy():
         converge=False
         flag=False
         y=-np.inf
+        i=1
+        
         while not converge:
-          
+          y=model(x_guess)
           if y<y_best:
-            y=model(x_guess)
             y_best=y
             x_best=x
           #full design
-          if flag==True:
-            converge=True
           g=0
+          flag=np.array_equal(x_guess,xmax) 
           while g<len(xmin):
             if x_guess[g]<xmax[g]:
               x_guess[g]=x_guess[g]+1
               x_guess[:g]=np.zeros_like(x_guess[:g])
-              g=999999999 #escape
+              g=+np.inf #escape
             else:
               g=g+1 #iterate
-          flag=np.array_equal(x_guess,xmax)      
+          
+          if flag==True:
+            converge=True
+          i=i+1
         return x_best, y_best
 
       
@@ -378,6 +386,13 @@ if __name__ == "__main__":
     "Level 2":[PowerTransformer(),QuantileTransformer(output_distribution='normal', random_state=0), PCA(n_components='mle')],
     "Level 3":[PartialLeastSquaresCV()]
     }
+    
+    '''
+    custom_recipe= {
+    "Level 1":[StandardScaler()],
+    "Level 2":[PowerTransformer()],
+    "Level 3":[PartialLeastSquaresCV()]
+    }'''
     solutions=SupervisedChemsy(X, Y,recipe=custom_recipe)
     solutions.get_results()
     pipeline=solutions.get_pipelines()
