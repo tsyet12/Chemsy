@@ -182,13 +182,15 @@ class SupervisedChemsy():
 
       def default_solver(model,x,xmin,xmax,*args,**kwargs):
         x_best=None
-        y_best=99999999999
+        y_best=np.inf
         x_guess=xmin
         converge=False
         flag=False
+        y=-np.inf
         while not converge:
-          y=model(x_guess)
+          
           if y<y_best:
+            y=model(x_guess)
             y_best=y
             x_best=x
           #full design
@@ -321,13 +323,15 @@ class ClassifyChemsy():
 
       def default_solver(model,x,xmin,xmax,*args,**kwargs):
         x_best=None
-        y_best=99999999999
+        y_best=np.inf
         x_guess=xmin
         converge=False
         flag=False
+        y=-np.inf
         while not converge:
-          y=model(x_guess)
+          
           if y<y_best:
+            y=model(x_guess)
             y_best=y
             x_best=x
           #full design
