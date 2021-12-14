@@ -188,4 +188,4 @@ Sin Yong Teng: sinyong.teng@ru.nl or tsyet12@gmail.com
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-Martijn Dingemans martijn.dingemans@gmail.com
+Martijn Dingemans martijn.dingemans@ru.nl or martijn.dingemans@gmail.com 
