@@ -19,7 +19,7 @@ from sklearn.decomposition import PCA, KernelPCA
    
 
 
-class SavgolFilter(TransformerMixin):
+class SavgolFilter(BaseEstimator,TransformerMixin):
   def __init__(self,window_length=5,polyorder=2,axis=1,  *args, **kwargs):
       self.__name__='SavgolFilter'
       self.window_length=window_length
@@ -42,7 +42,7 @@ class SavgolFilter(TransformerMixin):
       
   
 
-class BaselineASLS(TransformerMixin):
+class BaselineASLS(BaseEstimator,TransformerMixin):
   #Asymmetric Least Squares
   def __init__(self, lam=1e5, p=1e-3, niter=10):
       self.__name__='BaselineAsLS'
@@ -575,6 +575,65 @@ class L2NormScaling(BaseEstimator,TransformerMixin):
       self.fit(X)
       return self.transform(X)
 
+
+class OPLS(BaseEstimator, TransformerMixin):
+    def __init__(self, n_components=3):
+        self.n_components = n_components
+        self.W_ortho_ = None
+        self.P_ortho_ = None
+        self.T_ortho_ = None
+        self.x_mean_ = None
+        self.y_mean_ = None
+        self.x_std_ = None
+        self.y_std_ = None
+    def fit(self, X, Y):
+        try:
+            X=numpy.asarray(X)
+        except:
+            pass
+        try:
+            Y=numpy.asarray(Y)
+        except:
+            pass    
+        if Y.ndim == 1:
+            Y = Y.values.reshape(-1,1)
+        self.x_mean_ = X.mean(axis=0)
+        self.y_mean_ =X.mean(axis=0)
+        self.x_std_ =X.std(axis=0)
+        self.y_std_ = X.std(axis=0)
+
+        Z = X.copy()
+        w = np.dot(X.T, Y)  
+        w /= np.linalg.norm(w)  
+        W_ortho = []
+        T_ortho = []
+        P_ortho = []
+        for i in range(self.n_components):
+            t = np.dot(Z, w)  
+            p = np.dot(Z.T, t) / np.dot(t.T, t).item()  
+            w_ortho = p - np.dot(w.T, p).item() / np.dot(w.T, w).item() * w  
+            w_ortho = w_ortho / np.linalg.norm(w_ortho)  
+            t_ortho = np.dot(Z, w_ortho) 
+            p_ortho = np.dot(Z.T, t_ortho) / np.dot(t_ortho.T, t_ortho).item()
+            Z -= np.dot(t_ortho, p_ortho.T)
+            W_ortho.append(w_ortho)
+            T_ortho.append(t_ortho)
+            P_ortho.append(p_ortho)
+        self.W_ortho_ = np.hstack(W_ortho)
+        self.T_ortho_ = np.hstack(T_ortho)
+        self.P_ortho_ = np.hstack(P_ortho)
+        
+    def transform(self, X):
+        Z = X
+        Z -= self.x_mean_
+        for i in range(self.n_components):
+            t = np.dot(Z, self.W_ortho_[:, i]).reshape(-1, 1)
+            Z -= np.dot(t, self.P_ortho_[:, i].T.reshape(1, -1))
+        return Z
+    def fit_transform(self, X, y):
+        self.fit(X,y)
+        return self.transform(X)
+
       
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
@@ -582,8 +641,10 @@ if __name__ == "__main__":
     path=r'C:\Users\User\Downloads\\'
     data=pd.read_excel(path+'Data1.xlsx',index_col=0)
     data=data.iloc[:100,:140]
-    ms=ParetoScaling()
-    data1=ms.fit_transform(data)
+    Y=data.iloc[:100,-1]
+    #print(Y)
+    ms=OPLS()
+    data1=ms.fit_transform(data,Y)
 
     #data1.plot()
     '''
