@@ -186,8 +186,11 @@ Main Contributor:
 Sin Yong Teng sinyong.teng@ru.nl or tsyet12@gmail.com
 
 Contributors:
+
 Testing and Development: Martijn Dingemans martijn.dingemans@ru.nl or martijn.dingemans@gmail.com 
+
 Testing and Applications: Maria Cairoli maria.cairoli@ru.nl
+
 Conceptualization: Jeroen J. Jansen jj.jansen@science.ru.nl
 
 <!-- ACKNOWLEDGEMENTS -->
