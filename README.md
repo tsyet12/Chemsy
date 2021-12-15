@@ -183,7 +183,9 @@ Distributed under the Open Sourced BSD-2-Clause License. See [`LICENSE`](https:/
 <!-- CONTACT -->
 ## Contact
 Main Contributor:
+
 Sin Yong Teng sinyong.teng@ru.nl or tsyet12@gmail.com
+Radboud University Nijmegen
 
 Contributors:
 
