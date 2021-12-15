@@ -182,10 +182,14 @@ Distributed under the Open Sourced BSD-2-Clause License. See [`LICENSE`](https:/
 
 <!-- CONTACT -->
 ## Contact
+Main Contributor:
+Sin Yong Teng sinyong.teng@ru.nl or tsyet12@gmail.com
 
-Sin Yong Teng: sinyong.teng@ru.nl or tsyet12@gmail.com
-
+Contributors:
+Testing and Development: Martijn Dingemans martijn.dingemans@ru.nl or martijn.dingemans@gmail.com 
+Testing and Applications: Maria Cairoli maria.cairoli@ru.nl
+Conceptualization: Jeroen J. Jansen jj.jansen@science.ru.nl
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-Martijn Dingemans martijn.dingemans@ru.nl or martijn.dingemans@gmail.com 
+This project is co-funded by TKI-E&I with the supplementary grant 'TKI- Toeslag' for Topconsortia for Knowledge and Innovation (TKI's) of the Ministry of Economic Affairs and Climate Policy. The authors thank all partners within the project 'Measure for Management (M4M)’, managed by the Institute for Sustainable Process Technology (ISPT) in Amersfoort, The Netherlands.
