@@ -20,7 +20,7 @@ from sklearn.decomposition import PCA, KernelPCA
 
 
 class SavgolFilter(BaseEstimator,TransformerMixin):
-  def __init__(self,window_length=5,polyorder=2,axis=1,  *args, **kwargs):
+  def __init__(self,window_length=5,polyorder=2,axis=1):
       self.__name__='SavgolFilter'
       self.window_length=window_length
       self.polyorder=polyorder
@@ -643,8 +643,8 @@ if __name__ == "__main__":
     data=data.iloc[:100,:140]
     Y=data.iloc[:100,-1]
     #print(Y)
-    ms=OPLS()
-    data1=ms.fit_transform(data,Y)
+    ms=SavgolFilter(11,5)
+    data1=ms.fit_transform(data)
 
     #data1.plot()
     '''
