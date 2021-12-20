@@ -1,4 +1,5 @@
 # Chemsy - A Minimalistic Automatic Framework for Chemometrics and Machine Learning
+[![DOI](https://zenodo.org/badge/419412541.svg)](https://zenodo.org/badge/latestdoi/419412541)
 
 ![Chemsy Logo](https://github.com/tsyet12/Chemsy/blob/d46d0f8c1ab0b372b4684937d478ca6deaeba341/misc/wlogo.jpg)
 
