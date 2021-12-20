@@ -366,8 +366,6 @@ class RNV(BaseEstimator,TransformerMixin):
       X=X.T  
       self.quantile=X.quantile(q=self.q,axis=1)
       self.std=X.quantile(q=self.q,axis=1).std()
-      print(self.quantile)
-      print(self.std)
     def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
