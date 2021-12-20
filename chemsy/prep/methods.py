@@ -348,8 +348,6 @@ class SNV(BaseEstimator,TransformerMixin):
       except:
         pass
       self.fit(X)
-      print(self.std)
-      print(self.transform(X))
       return self.transform(X)
 class RNV(BaseEstimator,TransformerMixin):
     def __init__(self,q=0.1):
