@@ -222,6 +222,7 @@ class BaselineSecondOrder(BaseEstimator,TransformerMixin):
 class MSC(BaseEstimator,TransformerMixin):
     def __init__(self):
         self.__name__='MSC'
+        self.mean=None
     def __repr__(self):
         return self.__class__.__name__+'()'    
     def fit(self,X,y=None):
@@ -231,7 +232,7 @@ class MSC(BaseEstimator,TransformerMixin):
           X=pd.DataFrame(X)
         except:
           pass
-        mean= np.array(X.mean(axis=0))
+        self.mean= np.array(X.mean(axis=0))
         def transformMSC(x,mean):
             m,b= np.polyfit(mean,x,1)
             return (x-b)*m
@@ -242,7 +243,8 @@ class MSC(BaseEstimator,TransformerMixin):
           X=pd.DataFrame(X)
         except:
           pass
-        self.mean= np.array(X.mean(axis=0))
+        if self.mean==None:  
+            self.mean= np.array(X.mean(axis=0))
         def transformMSC(x,mean):
             m,b= np.polyfit(mean,x,1)
             return (x-b)*m
@@ -321,17 +323,24 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
 class SNV(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='SNV'
+      self.mean=None
+      self.std=None
     def __repr__(self):
         return self.__class__.__name__+'()' 
-    def fit(self,spc):
-      pass
+    def fit(self,X):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass
+      self.mean=X.mean(axis=0)
+      self.std=X.std(axis=0)
     def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
       except:
         pass
       X=X.T
-      R=(X -X.mean(axis=0))/(X.std(axis=0)+0.0000001)
+      R=(X -self.mean)/(self.std+np.finfo(float).eps)
       return R.T
     def fit_transform(self,X,y=None):
       try:
@@ -339,28 +348,41 @@ class SNV(BaseEstimator,TransformerMixin):
       except:
         pass
       X=X.T
-      R=(X -X.mean(axis=0))/(X.std(axis=0)+0.0000001)
+      R=(X -self.mean)/(self.std+np.finfo(float).eps)
       return R.T
 class RNV(BaseEstimator,TransformerMixin):
     def __init__(self,q=0.1):
       self.__name__='RNV'
       self.q=q
+      self.quantile=None
+      self.std=None
     def __repr__(self):
       return self.__class__.__name__+'()'
-    def fit(self,spc):
-      pass
+    def fit(self,X):
+      try:
+        X=pd.DataFrame(X)
+      except:
+        pass  
+      X=X.T  
+      self.quantile=X.quantile(q=self.q,axis=1)
+      self.std=X.quantile(q=self.q,axis=1).std()
+      print(self.quantile)
+      print(self.std)
     def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
       except:
         pass
-      return (X -X.quantile(q=self.q,axis=1))/(X.quantile(q=self.q,axis=1).std(axis=1)+0.0000001)
+      X=X.T
+      R=(X.subtract(self.quantile,axis=0))/(self.std+0.0000001)
+      return R.T
     def fit_transform(self,X,y=None):
       try:
         X=pd.DataFrame(X)
       except:
         pass
-      return (X -X.quantile(q=self.q,axis=1))/(X.quantile(q=self.q,axis=1).std(axis=1)+0.0000001)
+      self.fit(X)  
+      return self.transform(X)
       
 class MeanScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
@@ -643,10 +665,11 @@ if __name__ == "__main__":
     data=data.iloc[:100,:140]
     Y=data.iloc[:100,-1]
     #print(Y)
-    ms=SavgolFilter(11,5)
+    ms=RNV()
     data1=ms.fit_transform(data)
 
-    #data1.plot()
+
+    data.plot()
     '''
     data.plot(legend=False)
     msc=SNV()
@@ -654,5 +677,5 @@ if __name__ == "__main__":
     trans_data=pd.DataFrame(trans_data)
     trans_data.plot(legend=False)
     '''
-    #plt.show()
+    plt.show()
 
