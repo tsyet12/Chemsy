@@ -159,6 +159,7 @@ Recipe reference:
 Engel, J., Gerretzen, J., Szymańska, E., Jansen, J.J., Downey, G., Blanchet, L. and Buydens, L.M., 2013. Breaking with trends in pre-processing?. TrAC Trends in Analytical Chemistry, 50, pp.96-106.https://www.sciencedirect.com/science/article/pii/S0165993613001465
 
 
+
 More to be updated.
 
 
@@ -183,7 +184,7 @@ Distributed under the Open Sourced BSD-2-Clause License. See [`LICENSE`](https:/
 
 <!-- CONTACT -->
 ## Contact
-Main Contributor:
+Main Developer:
 
 Sin Yong Teng sinyong.teng@ru.nl or tsyet12@gmail.com
 Radboud University Nijmegen
