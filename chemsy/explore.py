@@ -223,7 +223,9 @@ class SupervisedChemsy():
 
       
       if self.solver==None:
-        self.solver=default_solver
+        solver=default_solver
+      else:
+        solver=self.solver
       up_bound=np.asarray(structure_list)
       x_best=solver(model_optimize,block_names,xmin=np.zeros_like(up_bound),xmax=up_bound)
 
