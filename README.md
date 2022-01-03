@@ -160,6 +160,18 @@ Engel, J., Gerretzen, J., Szymańska, E., Jansen, J.J., Downey, G., Blanchet, L.
 
 
 
+
+## Classification
+
+For classification set the argument "classify" as True:
+
+```python
+solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,classify=True)
+```
+
+See **[`this Google Colab`](https://colab.research.google.com/drive/1AeKFeE3FGRSEGjw4vCpdjjfAPw_mqppc?usp=sharing)** for classification example.
+
+
 More to be updated.
 
 
