@@ -94,6 +94,7 @@ class SupervisedChemsy():
         self.pipeline=[]
         self.recipe=recipe
         self.classify=classify
+        self.solver=solver
         self.ExploreModel(X,y,cv=cv,random_state=999,verbose=False, path='./', recipe=recipe)
         
 
@@ -221,8 +222,8 @@ class SupervisedChemsy():
         return x_best, y_best
 
       
-      if solver==None:
-        solver=default_solver
+      if self.solver==None:
+        self.solver=default_solver
       up_bound=np.asarray(structure_list)
       x_best=solver(model_optimize,block_names,xmin=np.zeros_like(up_bound),xmax=up_bound)
 
