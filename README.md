@@ -171,7 +171,7 @@ solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,classify=True)
 See **[`this Google Colab`](https://colab.research.google.com/drive/1AeKFeE3FGRSEGjw4vCpdjjfAPw_mqppc?usp=sharing)** for classification example.
 
 
-### Tutorial/Useful Examples
+# Tutorial/Useful Examples
 
 The tutorials below are Colab example on how to use Chemsy with more flexibility:
 
