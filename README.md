@@ -141,7 +141,7 @@ pip install git+https://github.com/tsyet12/Chemsy --quiet
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Example Recipe
 
 A recipe from Engel et al. (2013) for spectroscopic IR data:
 ```python
@@ -168,11 +168,12 @@ For classification set the argument "classify" as True:
 ```python
 solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,classify=True)
 ```
-
 See **[`this Google Colab`](https://colab.research.google.com/drive/1AeKFeE3FGRSEGjw4vCpdjjfAPw_mqppc?usp=sharing)** for classification example.
 
 
-More to be updated.
+## Useful Examples
+
+1. Regression Problem 
 
 
 <!-- CONTRIBUTING -->
