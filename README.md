@@ -149,7 +149,7 @@ Engel_2013= {
 "Baseline":[None, BaselineSecondOrder(),BaselineSecondOrder(degree=3),BaselineSecondOrder(degree=4),BaselineASLS(),FirstDerivative(),SecondDerivative()],
 "Scatter":[None, MeanScaling(), MedianScaling(),MaxScaling(),L2NormScaling(),RNV(q=0.15),RNV(q=0.25),RNV(q=0.35),MSC()],
 "Noise":[None, SavgolFilter(5,2),SavgolFilter(9,2),SavgolFilter(11,2),SavgolFilter(5,3),SavgolFilter(9,3),SavgolFilter(11,3),SavgolFilter(5,4),SavgolFilter(9,4),SavgolFilter(11,4)],
-"Scaling & Transformations":[MeanCentering(),StandardScaler(),RangeScaling(),ParetoScaling,PoissonScaling(),LevelScaling(), ],
+"Scaling & Transformations":[MeanCentering(),StandardScaler(),RangeScaling(),ParetoScaling(),PoissonScaling(),LevelScaling(), ],
 "PLS":[PartialLeastSquaresCV()]
 }
 
