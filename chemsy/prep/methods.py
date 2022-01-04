@@ -463,7 +463,7 @@ class MeanCentering(BaseEstimator,TransformerMixin):
         X=pd.DataFrame(X)
       except:
         pass
-      return pd.DataFrame(np.asarray(X)-np.asarray(self.max))
+      return pd.DataFrame(np.asarray(X)-np.asarray(self.mean))
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X) 
