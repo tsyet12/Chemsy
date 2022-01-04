@@ -171,9 +171,12 @@ solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,classify=True)
 See **[`this Google Colab`](https://colab.research.google.com/drive/1AeKFeE3FGRSEGjw4vCpdjjfAPw_mqppc?usp=sharing)** for classification example.
 
 
-## Useful Examples
+## Tutorial/Useful Examples
 
-1. Regression Problem 
+1. [`Regression Problem`](https://colab.research.google.com/drive/12HC8waNY1HDVfwofLNYYgwOB6awO2JJs?usp=sharing)
+2. [`Classification Problem`](https://colab.research.google.com/drive/1AeKFeE3FGRSEGjw4vCpdjjfAPw_mqppc?usp=sharing)
+3. [`Custom Solver`](https://colab.research.google.com/drive/1KBVBVaOGF-OdnMGc7vAziI-f2fDHzejX?usp=sharing)
+4. [`Custom Method`]()  (To be added)
 
 
 <!-- CONTRIBUTING -->
