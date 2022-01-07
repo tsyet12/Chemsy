@@ -178,7 +178,7 @@ The tutorials below are Colab example on how to use Chemsy with more flexibility
 1. Tutorial 1: [`Regression Problem`](https://colab.research.google.com/drive/12HC8waNY1HDVfwofLNYYgwOB6awO2JJs?usp=sharing)
 2. Tutorial 2: [`Classification Problem`](https://colab.research.google.com/drive/1AeKFeE3FGRSEGjw4vCpdjjfAPw_mqppc?usp=sharing)
 3. Tutorial 3: [`Custom Solver`](https://colab.research.google.com/drive/1KBVBVaOGF-OdnMGc7vAziI-f2fDHzejX?usp=sharing)
-4. Tutorial 4: [`Gerretzen Search`](https://colab.research.google.com/drive/146-1OUzmUvuRsk_Wj3D3ZJz4qOulQ36D?usp=sharing)
+4. Tutorial 4: [`Gerretzen Search (Custom Solver 2)`](https://colab.research.google.com/drive/146-1OUzmUvuRsk_Wj3D3ZJz4qOulQ36D?usp=sharing)
 5. Tutorial 5: [`Custom Method`]()  (To be added)
 
 Reference for search method in Tutorial 4: 
