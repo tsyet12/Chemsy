@@ -141,7 +141,7 @@ pip install git+https://github.com/tsyet12/Chemsy --quiet
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Example Recipe
 
 A recipe from Engel et al. (2013) for spectroscopic IR data:
 ```python
@@ -149,7 +149,7 @@ Engel_2013= {
 "Baseline":[None, BaselineSecondOrder(),BaselineSecondOrder(degree=3),BaselineSecondOrder(degree=4),BaselineASLS(),FirstDerivative(),SecondDerivative()],
 "Scatter":[None, MeanScaling(), MedianScaling(),MaxScaling(),L2NormScaling(),RNV(q=0.15),RNV(q=0.25),RNV(q=0.35),MSC()],
 "Noise":[None, SavgolFilter(5,2),SavgolFilter(9,2),SavgolFilter(11,2),SavgolFilter(5,3),SavgolFilter(9,3),SavgolFilter(11,3),SavgolFilter(5,4),SavgolFilter(9,4),SavgolFilter(11,4)],
-"Scaling & Transformations":[MeanCentering(),StandardScaler(),RangeScaling(),ParetoScaling,PoissonScaling(),LevelScaling(), ],
+"Scaling & Transformations":[MeanCentering(),StandardScaler(),RangeScaling(),ParetoScaling(),PoissonScaling(),LevelScaling(), ],
 "PLS":[PartialLeastSquaresCV()]
 }
 
@@ -168,11 +168,17 @@ For classification set the argument "classify" as True:
 ```python
 solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,classify=True)
 ```
-
 See **[`this Google Colab`](https://colab.research.google.com/drive/1AeKFeE3FGRSEGjw4vCpdjjfAPw_mqppc?usp=sharing)** for classification example.
 
 
-More to be updated.
+# Tutorial/Useful Examples
+
+The tutorials below are Colab example on how to use Chemsy with more flexibility:
+
+1. Tutorial 1: [`Regression Problem`](https://colab.research.google.com/drive/12HC8waNY1HDVfwofLNYYgwOB6awO2JJs?usp=sharing)
+2. Tutorial 2: [`Classification Problem`](https://colab.research.google.com/drive/1AeKFeE3FGRSEGjw4vCpdjjfAPw_mqppc?usp=sharing)
+3. Tutorial 3: [`Custom Solver`](https://colab.research.google.com/drive/1KBVBVaOGF-OdnMGc7vAziI-f2fDHzejX?usp=sharing)
+4. Tutorial 4: [`Custom Method`]()  (To be added)
 
 
 <!-- CONTRIBUTING -->
