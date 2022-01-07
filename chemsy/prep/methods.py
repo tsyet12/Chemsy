@@ -485,7 +485,7 @@ class PoissonScaling(BaseEstimator,TransformerMixin):
         X=pd.DataFrame(X)
       except:
         pass
-      return pd.DataFrame(np.divide(np.asarray(X),np.sqrt(np.asarray(self.mean))))
+      return pd.DataFrame(np.divide(np.asarray(X),np.sqrt(np.abs(np.asarray(self.mean)))))
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X) 
