@@ -178,8 +178,12 @@ The tutorials below are Colab example on how to use Chemsy with more flexibility
 1. Tutorial 1: [`Regression Problem`](https://colab.research.google.com/drive/12HC8waNY1HDVfwofLNYYgwOB6awO2JJs?usp=sharing)
 2. Tutorial 2: [`Classification Problem`](https://colab.research.google.com/drive/1AeKFeE3FGRSEGjw4vCpdjjfAPw_mqppc?usp=sharing)
 3. Tutorial 3: [`Custom Solver`](https://colab.research.google.com/drive/1KBVBVaOGF-OdnMGc7vAziI-f2fDHzejX?usp=sharing)
-4. Tutorial 4: [`Custom Method`]()  (To be added)
+4. Tutorial 4: [`Gerretzen Search`](https://colab.research.google.com/drive/146-1OUzmUvuRsk_Wj3D3ZJz4qOulQ36D?usp=sharing)
+5. Tutorial 5: [`Custom Method`]()  (To be added)
 
+Reference for search method in Tutorial 4: 
+
+Gerretzen, J., Szymańska, E., Jansen, J.J., Bart, J., van Manen, H.J., van den Heuvel, E.R. and Buydens, L.M., 2015. Simple and effective way for data preprocessing selection based on design of experiments. Analytical chemistry, 87(24), pp.12096-12103. https://pubs.acs.org/doi/abs/10.1021/acs.analchem.5b02832
 
 <!-- CONTRIBUTING -->
 ## Contributing
