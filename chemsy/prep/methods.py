@@ -67,10 +67,11 @@ class BaselineASLS(BaseEstimator,TransformerMixin):
       z = 0
       for i in range(self.niter):
           W = sparse.spdiags(w, 0, L, L)
-          Z = W + self.lam * D.dot(D.transpose())
+          Z=W + self.lam * D.dot(D.transpose())
           z = spsolve(Z, w * f)
           w = self.p * (f > z) + (1 - self.p) * (f < z)
-      return z    
+      return z  
+
   def fit_transform(self,X,y=None):
       self.y=y
       return self.transform(X,y)
@@ -615,7 +616,7 @@ class OPLS(BaseEstimator, TransformerMixin):
         except:
             pass    
         if Y.ndim == 1:
-            Y = Y.values.reshape(-1,1)
+            Y = Y.reshape(-1,1)
         self.x_mean_ = X.mean(axis=0)
         self.y_mean_ =X.mean(axis=0)
         self.x_std_ =X.std(axis=0)
@@ -656,17 +657,20 @@ class OPLS(BaseEstimator, TransformerMixin):
       
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
-    
+    from chemsy.explore import SupervisedChemsy
+    from chemsy.prep.methods import *
+    from chemsy.predict.methods import *
+    from chemsy.help import see_methods
     path=r'C:\Users\User\Downloads\\'
     data=pd.read_excel(path+'Data1.xlsx',index_col=0)
     data=data.iloc[:100,:140]
+    
+    data2=data.iloc[100:150,:140]
     Y=data.iloc[:100,-1]
     #print(Y)
-    ms=RNV()
-    data1=ms.fit_transform(data)
 
 
-    data1.plot()
+    #pd.DataFrame(data1).plot()
     '''
     data.plot(legend=False)
     msc=SNV()

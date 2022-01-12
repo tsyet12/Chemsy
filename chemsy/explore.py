@@ -249,27 +249,21 @@ class SupervisedChemsy():
         self.df.to_csv(path+'results.csv')
       return self.df
     
-    
 if __name__ == "__main__":    
     from sklearn.datasets import load_diabetes, load_iris
     from sklearn.neighbors import KNeighborsClassifier
+    
+
     X, Y = load_iris(return_X_y=True)
     custom_recipe= {
-    "Level 1":[SavgolFilter(),StandardScaler(),MinMaxScaler(),RobustScaler()],
-    "Level 2":[PowerTransformer(),QuantileTransformer(output_distribution='normal', random_state=0), PCA(n_components='mle')],
-    #"Level 3":[PartialLeastSquaresCV()]
-    "Level 3":[KNeighborsClassifier(n_neighbors=5)]
+    "Level 0":[None,RobustScaler()],
+    "Level 1":[MSC(),StandardScaler(),MinMaxScaler()],
+    "Level 2":[OPLS1()],
+    "Level 3":[Lasso() ]
     }
-    
-    '''
-    custom_recipe= {
-    "Level 1":[StandardScaler()],
-    "Level 2":[PowerTransformer()],
-    "Level 3":[PartialLeastSquaresCV()]
-    }'''
-    solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,classify=True)
-    solutions.get_results()
-    pipeline=solutions.get_pipelines()
-    
-    print(pipeline)
+    solutions=SupervisedChemsy(X, Y,recipe=custom_recipe)
+    print(solutions.get_results())
+    pipeline=solutions.get_pipelines()[-1]
+    pipeline.fit(X,Y)
+
 
