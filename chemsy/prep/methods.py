@@ -26,9 +26,7 @@ class SavgolFilter(BaseEstimator,TransformerMixin):
       self.polyorder=polyorder
       self.axis=axis
       self.output=None
-      
-  def __repr__(self):
-      return self.__class__.__name__+'()'   
+  
   def fit(self,X,y=None):
       pass
 
@@ -51,9 +49,7 @@ class BaselineASLS(BaseEstimator,TransformerMixin):
       self.niter=niter
       self.y=None
       self.output=None
-      
-  def __repr__(self):
-      return self.__class__.__name__+'()'  
+ 
   def fit(self,X,y=None):
       self.y=y
   def transform(self,X,y=None):
@@ -81,9 +77,7 @@ class BaselineASLS(BaseEstimator,TransformerMixin):
 class BaselineModpoly(BaseEstimator,TransformerMixin):
   def __init__(self, degree=2):
     self.__name__='BaselineModPoly'
-    self.degree=degree
-  def __repr__(self):
-    return self.__class__.__name__+'()'   
+    self.degree=degree 
   def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
@@ -114,8 +108,7 @@ class BaselineZhangFit(BaseEstimator,TransformerMixin):
   def __init__(self, itermax=50):
     self.__name__='BaselineZhangFit'
     self.itermax=itermax
-  def __repr__(self):
-    return self.__class__.__name__+'()' 
+
   def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
@@ -145,8 +138,7 @@ class BaselineIModPoly(BaseEstimator,TransformerMixin):
   def __init__(self, degree=2):
     self.__name__='BaselineImprovedModPoly'
     self.degree=degree
-  def __repr__(self):
-    return self.__class__.__name__+'()'  
+
   def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
@@ -175,8 +167,7 @@ class BaselineIModPoly(BaseEstimator,TransformerMixin):
 class BaselineLinear(BaseEstimator,TransformerMixin):
   def __init__(self):
     self.__name__='BaselineLinear'
-  def __repr__(self):
-    return self.__class__.__name__+'()'  
+
   def fit(self,X,y=None):
     pass
   def transform(self,X,y=None):
@@ -196,9 +187,7 @@ class BaselineLinear(BaseEstimator,TransformerMixin):
 class BaselineSecondOrder(BaseEstimator,TransformerMixin):
   def __init__(self,degree=2):
       self.__name__='BaselineSecondOrder'
-      self.degree=degree
-  def __repr__(self):
-      return self.__class__.__name__+'()' 
+      self.degree=degree 
   
   def fit(self,X,y=None):
       pass
@@ -224,8 +213,7 @@ class MSC(BaseEstimator,TransformerMixin):
     def __init__(self):
         self.__name__='MSC'
         self.mean=None
-    def __repr__(self):
-        return self.__class__.__name__+'()'    
+ 
     def fit(self,X,y=None):
         pass
     def transform(self,X,y=None):
@@ -255,9 +243,7 @@ class MSC(BaseEstimator,TransformerMixin):
 class FirstDerivative(BaseEstimator,TransformerMixin):
     def __init__(self,d=2):
         self.__name__='First Derivative'
-        self.d=d
-    def __repr__(self):
-        return self.__class__.__name__+'()'    
+        self.d=d  
     
     def fit(self,X,y=None):
         pass
@@ -291,8 +277,7 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
     def __init__(self,d=2):
         self.__name__='Second Derivative'
         self.d=d
-    def __repr__(self):
-        return self.__class__.__name__+'()'  
+
     def fit(self,X,y=None):
         pass
     def transform(self,X,y=None): 
@@ -326,8 +311,7 @@ class SNV(BaseEstimator,TransformerMixin):
       self.__name__='SNV'
       self.mean=None
       self.std=None
-    def __repr__(self):
-        return self.__class__.__name__+'()' 
+
     def fit(self,X):
       try:
         X=pd.DataFrame(X)
@@ -356,8 +340,7 @@ class RNV(BaseEstimator,TransformerMixin):
       self.q=q
       self.quantile=None
       self.std=None
-    def __repr__(self):
-      return self.__class__.__name__+'()'
+
     def fit(self,X):
       try:
         X=pd.DataFrame(X)
@@ -386,8 +369,7 @@ class MeanScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='MeanScaling'
       self.mean=0
-    def __repr__(self):
-      return self.__class__.__name__+'()'
+
     def fit(self,X,y=None):
       try:
         X=pd.DataFrame(X)
@@ -408,8 +390,7 @@ class MedianScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='MedianScaling'
       self.median=0
-    def __repr__(self):
-      return self.__class__.__name__+'()'
+
     def fit(self,X,y=None):
       try:
         X=pd.DataFrame(X)
@@ -429,8 +410,7 @@ class MaxScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='MaxScaling'
       self.max=0
-    def __repr__(self):
-      return self.__class__.__name__+'()'
+
     def fit(self,X,y=None):
       try:
         X=pd.DataFrame(X)
@@ -451,8 +431,7 @@ class MeanCentering(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='MeanCentering'
       self.mean=0
-    def __repr__(self):
-      return self.__class__.__name__+'()'
+
     def fit(self,X,y=None):
       try:
         X=pd.DataFrame(X)
@@ -473,8 +452,7 @@ class PoissonScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='PoissonScaling'
       self.mean=0
-    def __repr__(self):
-      return self.__class__.__name__+'()'
+
     def fit(self,X,y=None):
       try:
         X=pd.DataFrame(X)
@@ -496,8 +474,6 @@ class ParetoScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='ParetoScaling'
       self.std=0
-    def __repr__(self):
-      return self.__class__.__name__+'()'
     def fit(self,X,y=None):
       try:
         X=pd.DataFrame(X)
@@ -518,8 +494,6 @@ class LevelScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='LevelScaling'
       self.mean=0
-    def __repr__(self):
-      return self.__class__.__name__+'()'
     def fit(self,X,y=None):
       try:
         X=pd.DataFrame(X)
@@ -541,8 +515,6 @@ class RangeScaling(BaseEstimator,TransformerMixin):
       self.max=0
       self.min=0
       self.mean=0
-    def __repr__(self):
-      return self.__class__.__name__+'()'
     def fit(self,X,y=None):
       try:
         X=pd.DataFrame(X)
@@ -564,8 +536,6 @@ class RangeScaling(BaseEstimator,TransformerMixin):
 class LogTransform(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='LogTransform'
-    def __repr__(self):
-      return self.__class__.__name__+'()'
     def fit(self,X,y=None):
       pass
     def transform(self,X, y=None):
@@ -581,8 +551,6 @@ class LogTransform(BaseEstimator,TransformerMixin):
 class L2NormScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='L2NormScaling'
-    def __repr__(self):
-      return self.__class__.__name__+'()'
     def fit(self,X,y=None):
       pass
     def transform(self,X, y=None):
@@ -608,15 +576,16 @@ class OPLS(BaseEstimator, TransformerMixin):
         self.y_std_ = None
     def fit(self, X, Y):
         try:
-            X=numpy.asarray(X)
+            X=np.asarray(X)
         except:
             pass
         try:
-            Y=numpy.asarray(Y)
+            Y=np.asarray(Y)  
         except:
-            pass    
+            pass
         if Y.ndim == 1:
             Y = Y.reshape(-1,1)
+
         self.x_mean_ = X.mean(axis=0)
         self.y_mean_ =X.mean(axis=0)
         self.x_std_ =X.std(axis=0)
@@ -657,16 +626,17 @@ class OPLS(BaseEstimator, TransformerMixin):
       
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
-    from chemsy.explore import SupervisedChemsy
-    from chemsy.prep.methods import *
-    from chemsy.predict.methods import *
-    from chemsy.help import see_methods
+
     path=r'C:\Users\User\Downloads\\'
     data=pd.read_excel(path+'Data1.xlsx',index_col=0)
     data=data.iloc[:100,:140]
     
     data2=data.iloc[100:150,:140]
     Y=data.iloc[:100,-1]
+    rs=OPLS()
+    rs.fit_transform(data,Y)
+    print(rs)
+    
     #print(Y)
 
 
