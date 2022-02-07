@@ -215,13 +215,13 @@ class MSC(BaseEstimator,TransformerMixin):
         self.mean=None
  
     def fit(self,X,y=None):
-        pass
+        self.mean= np.array(X.mean(axis=0))
     def transform(self,X,y=None):
         try:
           X=pd.DataFrame(X)
         except:
           pass
-        self.mean= np.array(X.mean(axis=0))
+        #self.mean= np.array(X.mean(axis=0))
         def transformMSC(x,mean):
             m,b= np.polyfit(mean,x,1)
             return (x-b)*m
@@ -231,9 +231,8 @@ class MSC(BaseEstimator,TransformerMixin):
         try:
           X=pd.DataFrame(X)
         except:
-          pass
-        if type(self.mean)!=np.ndarray:  
-            self.mean= np.array(X.mean(axis=0))
+          pass 
+        self.mean= np.array(X.mean(axis=0))
         def transformMSC(x,mean):
             m,b= np.polyfit(mean,x,1)
             return (x-b)*m
