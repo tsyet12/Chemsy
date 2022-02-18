@@ -88,7 +88,7 @@ def get_name_sep(method_list):
 
 
 class SupervisedChemsy():
-    def __init__(self,X,y,cv=None,random_state=999,verbose=False, path='./', recipe='normal',solver=None,output_csv=False, classify=False):
+    def __init__(self,X,y,cv=None,random_state=999,verbose=False, path='./', recipe='normal',solver=None,output_csv=False, classify=False, n_jobs=None):
         self.df=None
         self.pbar=None
         self.pipeline=[]
@@ -161,7 +161,7 @@ class SupervisedChemsy():
         method_name=get_name(feed_list) 
         clf=make_pipeline(*feed_list)
         self.pipeline.append(clf)
-        score=cross_validate(clf, X, y, cv=cv,scoring=scoring_dict)
+        score=cross_validate(clf, X, y, cv=cv,scoring=scoring_dict,n_jobs=n_jobs)
         score=fix_name(score)
         if self.df is None:
             self.df=pd.DataFrame.from_dict(score).mean(axis=0).to_frame().transpose().rename(index={0:method_name})
