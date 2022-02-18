@@ -583,7 +583,10 @@ class OPLS(BaseEstimator, TransformerMixin):
         except:
             pass
         if Y.ndim == 1:
-            Y = Y.reshape(-1,1)
+            try:
+                Y = Y.reshape(-1,1)
+            except:
+                pass
 
         self.x_mean_ = X.mean(axis=0)
         self.y_mean_ =X.mean(axis=0)
@@ -633,8 +636,8 @@ if __name__ == "__main__":
     data2=data.iloc[100:150,:140]
     Y=data.iloc[:100,-1]
     rs=OPLS()
-    rs.fit_transform(data,Y)
-    print(rs)
+    Yt=rs.fit_transform(data,Y)
+    print(Yt)
     
     #print(Y)
 

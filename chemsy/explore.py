@@ -95,8 +95,10 @@ class SupervisedChemsy():
         self.recipe=recipe
         self.classify=classify
         self.solver=solver
-        self.ExploreModel(X,y,cv=cv,random_state=999,verbose=False, path='./', recipe=recipe)
         self.n_jobs=n_jobs
+        
+        #This at bottom 
+        self.ExploreModel(X,y,cv=cv,random_state=999,verbose=False, path='./', recipe=recipe)
 
         if not verbose:
             warnings.filterwarnings("ignore")
@@ -248,6 +250,8 @@ class SupervisedChemsy():
       if output_csv:
         self.df.to_csv(path+'results.csv')
       return self.df
+
+
     
 if __name__ == "__main__":    
     from sklearn.datasets import load_diabetes, load_iris
@@ -261,9 +265,10 @@ if __name__ == "__main__":
     "Level 2":[OPLS()],
     "Level 3":[Lasso() ]
     }
-    solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,n_jobs=2)
+    solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,n_jobs=None)
     print(solutions.get_results())
     pipeline=solutions.get_pipelines()[-1]
+    print(pipeline)
     pipeline.fit(X,Y)
 
 
