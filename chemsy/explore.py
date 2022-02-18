@@ -96,7 +96,7 @@ class SupervisedChemsy():
         self.classify=classify
         self.solver=solver
         self.ExploreModel(X,y,cv=cv,random_state=999,verbose=False, path='./', recipe=recipe)
-        
+        self.n_jobs=n_jobs
 
         if not verbose:
             warnings.filterwarnings("ignore")
@@ -161,7 +161,7 @@ class SupervisedChemsy():
         method_name=get_name(feed_list) 
         clf=make_pipeline(*feed_list)
         self.pipeline.append(clf)
-        score=cross_validate(clf, X, y, cv=cv,scoring=scoring_dict,n_jobs=n_jobs)
+        score=cross_validate(clf, X, y, cv=cv,scoring=scoring_dict,n_jobs=self.n_jobs)
         score=fix_name(score)
         if self.df is None:
             self.df=pd.DataFrame.from_dict(score).mean(axis=0).to_frame().transpose().rename(index={0:method_name})
@@ -258,10 +258,10 @@ if __name__ == "__main__":
     custom_recipe= {
     "Level 0":[None,RobustScaler()],
     "Level 1":[MSC(),StandardScaler(),MinMaxScaler()],
-    "Level 2":[OPLS1()],
+    "Level 2":[OPLS()],
     "Level 3":[Lasso() ]
     }
-    solutions=SupervisedChemsy(X, Y,recipe=custom_recipe)
+    solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,n_jobs=2)
     print(solutions.get_results())
     pipeline=solutions.get_pipelines()[-1]
     pipeline.fit(X,Y)
