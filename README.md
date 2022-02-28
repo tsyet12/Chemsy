@@ -27,6 +27,21 @@ Chemsy serves as a framework for automatic pre-processing and modelling:
 
 ![Chemsy Framework](https://github.com/tsyet12/Chemsy/blob/aa178c6369e8ef53d46fc0cfcfce0387b6bfa8c4/misc/Framework.png)
 
+## Installation
+
+### Install on Google Colab:
+In a [`Colab`](https://colab.research.google.com) code block:
+```bat
+!pip install git+https://github.com/tsyet12/Chemsy --quiet
+```
+
+
+### Install on local python environment:
+In a environment terminal or CMD:
+```bat
+pip install git+https://github.com/tsyet12/Chemsy --quiet
+```
+
 
 ## Current support for algorithms
 
@@ -67,20 +82,6 @@ Preprocessing method supported:
 Prediction method supported:
 ['BayesianRidge', 'DecisionTreeRegressor', 'ElasticNet', 'GaussianProcessRegressor', 'GradientBoostingRegressor', 'KNeighborsRegressor', 'KernelRidge', 'Lasso', 'LinearRegression', 'MLPRegressor', 'PLSRegression', 'PartialLeastSquaresCV', 'RandomForestRegressor', 'Ridge']
 
-```
-## Installation
-
-### Install on Google Colab:
-In a [`Colab`](https://colab.research.google.com) code block:
-```bat
-!pip install git+https://github.com/tsyet12/Chemsy --quiet
-```
-
-
-### Install on local python environment:
-In a environment terminal or CMD:
-```bat
-pip install git+https://github.com/tsyet12/Chemsy --quiet
 ```
 
 
