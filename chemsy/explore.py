@@ -122,7 +122,7 @@ class SupervisedChemsy():
     def ExploreModel(self,X,y,cv=None,random_state=999,verbose=False, path='./', recipe='normal',solver=None,output_csv=False):
       if cv==None:
         #cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=random_state)
-        cv=KFold(n_splits=5,random_state=random_state)
+        cv=KFold(n_splits=5,random_state=random_state,shuffle=True)
       kernel = C(1.0, (1e-3, 1e3)) * RBF(10, (1e-2, 1e2))
 
       if recipe=='normal':
