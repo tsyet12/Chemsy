@@ -68,6 +68,20 @@ Prediction method supported:
 ['BayesianRidge', 'DecisionTreeRegressor', 'ElasticNet', 'GaussianProcessRegressor', 'GradientBoostingRegressor', 'KNeighborsRegressor', 'KernelRidge', 'Lasso', 'LinearRegression', 'MLPRegressor', 'PLSRegression', 'PartialLeastSquaresCV', 'RandomForestRegressor', 'Ridge']
 
 ```
+## Installation
+
+### Install on Google Colab:
+In a [`Colab`](https://colab.research.google.com) code block:
+```bat
+!pip install git+https://github.com/tsyet12/Chemsy --quiet
+```
+
+
+### Install on local python environment:
+In a environment terminal or CMD:
+```bat
+pip install git+https://github.com/tsyet12/Chemsy --quiet
+```
 
 
 <!-- GETTING STARTED -->
@@ -123,21 +137,6 @@ Return:
 | StandardScaler + PowerTransformer + PartialLeastSquaresCV    | 0.201116   |  0.00330443  |         43.8542 |         2883.86 |      0.502165  |        0.922369 |
 | ⋮  | ⋮   |   ⋮ |         ⋮ |         ⋮ |      ⋮  |        ⋮ |
 
-
-## Installation
-
-### Install on Google Colab:
-In a [`Colab`](https://colab.research.google.com) code block:
-```bat
-!pip install git+https://github.com/tsyet12/Chemsy --quiet
-```
-
-
-### Install on local python environment:
-In a environment terminal or CMD:
-```bat
-pip install git+https://github.com/tsyet12/Chemsy --quiet
-```
 
 
 <!-- USAGE EXAMPLES -->
