@@ -1,5 +1,5 @@
 from sklearn import svm
-from sklearn.model_selection import cross_val_score, ShuffleSplit
+from sklearn.model_selection import cross_val_score, ShuffleSplit, KFold
 from sklearn import metrics
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import make_scorer
@@ -42,7 +42,7 @@ def fix_name(score_dict):
         renamed_dict (dict): renamed score dictionary
     '''
     d=score_dict
-    d1 = {'test_MAE':'cross_val_MAE', 'test_MSE':'cross_val_MSE', 'test_R2':'cross_val_R2','test_MBE':'cross_val_MBE','test_F1':'cross_val_F1','test_precision':'cross_val_precision','test_recall':'cross_val_recall','test_accuracy':'cross_val_accuracy','fit_time':'fit_time','score_time':'score_time'}
+    d1 = {'test_MAE':'cross_val_MAE', 'test_MSE':'cross_val_MSE', 'test_R2':'cross_val_R2','test_MBE':'cross_val_MBE','test_F1':'cross_val_F1','test_precision':'cross_val_precision','test_recall':'cross_val_recall','test_accuracy':'cross_val_accuracy','fit_time':'fit_time','score_time':'score_time','test_custom_loss':'cross_val_custom_loss'}
     renamed_dict = dict((d1[key], value) for (key, value) in d.items())
     return renamed_dict
 
@@ -87,8 +87,9 @@ def get_name_sep(method_list):
     return pipeline_name
 
 
+
 class SupervisedChemsy():
-    def __init__(self,X,y,cv=None,random_state=999,verbose=False, path='./', recipe='normal',solver=None,output_csv=False, classify=False, n_jobs=None):
+    def __init__(self,X,y,cv=None,random_state=999,verbose=False, path='./', recipe='normal',solver=None,output_csv=False, classify=False, n_jobs=None,custom_loss=None):
         self.df=None
         self.pbar=None
         self.pipeline=[]
@@ -96,6 +97,7 @@ class SupervisedChemsy():
         self.classify=classify
         self.solver=solver
         self.n_jobs=n_jobs
+        self.custom_loss=custom_loss
         
         #This at bottom 
         self.ExploreModel(X,y,cv=cv,random_state=999,verbose=False, path='./', recipe=recipe)
@@ -119,7 +121,8 @@ class SupervisedChemsy():
         return d
     def ExploreModel(self,X,y,cv=None,random_state=999,verbose=False, path='./', recipe='normal',solver=None,output_csv=False):
       if cv==None:
-        cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=random_state)
+        #cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=random_state)
+        cv=KFold(n_splits=5,random_state=random_state)
       kernel = C(1.0, (1e-3, 1e3)) * RBF(10, (1e-2, 1e2))
 
       if recipe=='normal':
@@ -140,10 +143,15 @@ class SupervisedChemsy():
         pass
 
       MBE=make_scorer(MBEfunc, greater_is_better=False)
-      if self.classify==False:
-        scoring_dict={'MAE':'neg_mean_absolute_error','MSE':'neg_mean_squared_error','R2':'r2','MBE':MBE}
+      
+      if self.custom_loss is None:
+          if self.classify==False:
+            scoring_dict={'MAE':'neg_mean_absolute_error','MSE':'neg_mean_squared_error','R2':'r2','MBE':MBE}
+          else:
+            scoring_dict={'F1':'f1_weighted','precision':'precision_weighted','recall':'recall_weighted','accuracy':'accuracy'}
       else:
-        scoring_dict={'F1':'f1_weighted','precision':'precision_weighted','recall':'recall_weighted','accuracy':'accuracy'}
+          scoring_dict={'custom_loss':self.custom_loss}
+      
       recipe_list=list(recipe.values())
       block_names=list(recipe.keys())
       structure_list=[]
@@ -169,26 +177,14 @@ class SupervisedChemsy():
             self.df=pd.DataFrame.from_dict(score).mean(axis=0).to_frame().transpose().rename(index={0:method_name})
         else:
             self.df=pd.concat([self.df,pd.DataFrame.from_dict(score).mean(axis=0).to_frame().transpose().rename(index={0:method_name})])
-        '''
-        try:
-          clf=make_pipeline(*feed_list)
-          score=cross_validate(clf, X, y, cv=cv,scoring=scoring_dict)
-          score=fix_name(score)
-          
-          if self.df is None:
-
-            self.df=pd.DataFrame.from_dict(score).mean(axis=0).to_frame().transpose().rename(index={0:method_name})
-          else:
-            self.df=pd.concat([self.df,pd.DataFrame.from_dict(score).mean(axis=0).to_frame().transpose().rename(index={0:method_name})])
-        except Exception as e:
-            if verbose:
-              print("Fail: "+method_name)
-              print(e)
-        '''    
-        if self.classify==False:
-            r=score['cross_val_MAE'].mean()
+        
+        if self.custom_loss is None:
+            if self.classify==False:
+                r=score['cross_val_MAE'].mean()
+            else:
+                r=1-score['cross_val_accuracy'].mean()
         else:
-            r=1-score['cross_val_accuracy'].mean()
+            r=score['cross_val_custom_loss'].mean()
         return r
         
 
@@ -236,15 +232,25 @@ class SupervisedChemsy():
       self.df.replace(-np.inf, -999999999999, inplace=True)
       self.df.replace(np.inf,  +999999999999, inplace=True)
       
-      if self.classify==False:
-          self.df["cross_val_MAE"]=-self.df["cross_val_MAE"]
-          self.df["cross_val_MSE"]=-self.df["cross_val_MSE"]
+      
+      if self.custom_loss is None:
+          if self.classify==False:
+              self.df["cross_val_MAE"]=-self.df["cross_val_MAE"]
+              self.df["cross_val_MSE"]=-self.df["cross_val_MSE"]
 
-          temp=pd.concat([self.df,pd.DataFrame(self.pipeline, columns=['pipeline'],index=self.df.index)],axis=1)
-          temp=temp.sort_values(by=["cross_val_MAE"],ascending=True)
+              temp=pd.concat([self.df,pd.DataFrame(self.pipeline, columns=['pipeline'],index=self.df.index)],axis=1)
+              temp=temp.sort_values(by=["cross_val_MAE"],ascending=True)
+          else:
+              temp=pd.concat([self.df,pd.DataFrame(self.pipeline, columns=['pipeline'],index=self.df.index)],axis=1)
+              temp=temp.sort_values(by=["cross_val_accuracy"],ascending=False)
       else:
+          if self.custom_loss._sign==-1:
+              asc=True
+          else:
+              asc=False
           temp=pd.concat([self.df,pd.DataFrame(self.pipeline, columns=['pipeline'],index=self.df.index)],axis=1)
-          temp=temp.sort_values(by=["cross_val_accuracy"],ascending=False)
+          temp=temp.sort_values(by=["cross_val_custom_loss"],ascending=asc)
+          
       self.pipeline=temp['pipeline']
       self.df=temp.drop(columns='pipeline')
       if output_csv:
@@ -262,10 +268,11 @@ if __name__ == "__main__":
     custom_recipe= {
     "Level 0":[None,RobustScaler()],
     "Level 1":[MSC(),StandardScaler(),MinMaxScaler()],
-    "Level 2":[OPLS()],
+    "Level 2":[PCA()],
     "Level 3":[Lasso() ]
     }
-    solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,n_jobs=None)
+    scorer=make_scorer(MBEfunc, greater_is_better=False)
+    solutions=SupervisedChemsy(X, Y,recipe=custom_recipe,n_jobs=None,custom_loss=scorer)
     print(solutions.get_results())
     pipeline=solutions.get_pipelines()[-1]
     print(pipeline)
