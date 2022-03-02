@@ -28,6 +28,10 @@ Chemsy serves as a framework for automatic pre-processing and modelling:
 
 ![Chemsy Framework](https://user-images.githubusercontent.com/19692103/156377693-0112f36c-5c5c-412b-864f-868ea18ec86a.png)
 
+
+## Future Release
+We will provide support for explainable AI (xAI) and hybrid AI (hAI) in the near future. Future specific model interpretation tools are being internally reviewed for release.
+
 ## Installation
 
 ### Install on Google Colab:
