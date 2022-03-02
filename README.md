@@ -1,7 +1,8 @@
 # Chemsy - A Minimalistic Automatic Framework for Chemometrics and Machine Learning
 [![DOI](https://zenodo.org/badge/419412541.svg)](https://zenodo.org/badge/latestdoi/419412541)
 
-![Chemsy Logo](https://github.com/tsyet12/Chemsy/blob/d46d0f8c1ab0b372b4684937d478ca6deaeba341/misc/wlogo.jpg)
+![Chemsy Logo](https://user-images.githubusercontent.com/19692103/156377578-b3091929-a345-463a-8171-40ca0b4310ce.jpg)
+
 
 
 <!-- TABLE OF CONTENTS -->
@@ -25,7 +26,7 @@ This project is to make a lightweight and flexible automatic framework for chemo
 
 Chemsy serves as a framework for automatic pre-processing and modelling:
 
-![Chemsy Framework](https://github.com/tsyet12/Chemsy/blob/aa178c6369e8ef53d46fc0cfcfce0387b6bfa8c4/misc/Framework.png)
+![Chemsy Framework](https://user-images.githubusercontent.com/19692103/156377693-0112f36c-5c5c-412b-864f-868ea18ec86a.png)
 
 ## Installation
 
