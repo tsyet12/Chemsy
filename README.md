@@ -32,15 +32,16 @@ Chemsy serves as a framework for automatic pre-processing and modelling:
 ## Future Release
 We will provide support for explainable AI (xAI) and hybrid AI (hAI) in the near future. Future specific model interpretation tools are being internally reviewed for release.
 
-## Installation
-
+## Install a Stable Version
+```bat
+pip install Chemsy
+```
+## Install the Most Updated Version (Recommended)
 ### Install on Google Colab:
 In a [`Colab`](https://colab.research.google.com) code block:
 ```bat
 !pip install git+https://github.com/tsyet12/Chemsy --quiet
 ```
-
-
 ### Install on local python environment:
 In a environment terminal or CMD:
 ```bat
