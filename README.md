@@ -228,3 +228,7 @@ Conceptualization: Jeroen J. Jansen jj.jansen@science.ru.nl
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 This project is co-funded by TKI-E&I with the supplementary grant 'TKI- Toeslag' for Topconsortia for Knowledge and Innovation (TKI's) of the Ministry of Economic Affairs and Climate Policy. The authors thank all partners within the project 'Measure for Management (M4M)’, managed by the Institute for Sustainable Process Technology (ISPT) in Amersfoort, The Netherlands.
+
+<!-- How To Cite This Software -->
+## How to cite this software
+S.Y., Teng., M., Dingemans, M., Cairoli, J., Jansen. (2021). tsyet12/Chemsy: Chemsy v1.0b (Zenodo). Zenodo. https://doi.org/10.5281/zenodo.5793315
