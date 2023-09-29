@@ -1,6 +1,6 @@
 numpy
 matplotlib
-sklearn
+scikit-learn
 BaselineRemoval
 scipy
 tqdm
