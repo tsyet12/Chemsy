@@ -308,18 +308,9 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
 class SNV(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='SNV'
-      self.mean=None
-      self.std=None
 
     def fit(self,X):
-      try:
-        X=pd.DataFrame(X)
-        if X.shape[1] == 1:
-          X=X.T
-      except:
-        pass
-      self.mean=X.mean(axis=1)
-      self.std=X.std(axis=1)
+      pass
     def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
@@ -327,7 +318,7 @@ class SNV(BaseEstimator,TransformerMixin):
           X=X.T
       except:
         pass
-      R=(X.subtract(self.mean, axis=0)).divide(self.std+np.finfo(float).eps, axis=0)
+      R=(X.subtract(X.mean(axis=1), axis=0)).divide(X.std(axis=1)+np.finfo(float).eps, axis=0)
       return R
     def fit_transform(self,X,y=None):
       try:
@@ -340,31 +331,29 @@ class SNV(BaseEstimator,TransformerMixin):
       return self.transform(X)
        
 class RNV(BaseEstimator,TransformerMixin):
-    def __init__(self,q=0.1):
+    def __init__(self,q=0.5):
       self.__name__='RNV'
       self.q=q
-      self.quantile=None
-      self.std=None
 
     def fit(self,X):
-      try:
-        X=pd.DataFrame(X)
-      except:
-        pass  
-      X=X.T  
-      self.quantile=X.quantile(q=self.q,axis=1)
-      self.std=X.quantile(q=self.q,axis=1).std()
+      pass
     def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
+        if X.shape[1] == 1:
+          X=X.T
       except:
         pass
-      X=X.T
-      R=(X.subtract(self.quantile,axis=0))/(self.std+np.finfo(float).eps)
-      return R.T
+      percentile=X.quantile(q=self.q,axis=1)
+      percentile2=(np.asarray(percentile)*np.ones(X.shape).T).T
+      qstd=X.where(X<=percentile2).std(axis=1,skipna=True,ddof=1)
+      qstd=(np.asarray(qstd)*np.ones(X.shape).T).T
+      return (X-percentile2)/(qstd+np.finfo(float).eps)
     def fit_transform(self,X,y=None):
       try:
         X=pd.DataFrame(X)
+        if X.shape[1] == 1:
+          X=X.T
       except:
         pass
       self.fit(X)  

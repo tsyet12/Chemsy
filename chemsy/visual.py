@@ -157,16 +157,18 @@ def test_pred_kde(y_test,y_pred,nbins=300,ax=None,verbose=False):
 if __name__ == "__main__":    
     from sklearn.datasets import load_diabetes, load_iris
     from sklearn.neighbors import KNeighborsClassifier
-    
+    from sklearn.svm import SVR
 
     X, Y = load_diabetes(return_X_y=True)
     custom_recipe= {
     "Level 0":[None,RobustScaler()],
     "Level 1":[MSC(),StandardScaler(),MinMaxScaler()],
     "Level 2":[PCA()],
-    "Level 3":[Lasso() ]
+    "Level 3":[PartialLeastSquaresCV()]
     }
     solutions=SupervisedChemsy(X, Y,recipe=custom_recipe)
+    
+    '''
     f, ax = plt.subplots(nrows=2, ncols=1,figsize=(6, 6), gridspec_kw={'height_ratios': [1, 4]})
     visualise_pipeline(ax[1],custom_recipe,solutions)
     visualise_color(ax[0],custom_recipe,loc='center')
@@ -179,8 +181,8 @@ if __name__ == "__main__":
     pipeline=solutions.get_pipelines()[0]
     pipeline.fit(X,Y)
     Y_pred=pipeline.predict(X)
-    test_pred_kde(Y,Y_pred,verbose=True)
-    '''
+    test_pred_kde(Y,Y_pred.T[0],verbose=True)
+    
     
 
 
