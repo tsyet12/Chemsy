@@ -314,25 +314,31 @@ class SNV(BaseEstimator,TransformerMixin):
     def fit(self,X):
       try:
         X=pd.DataFrame(X)
+        if X.shape[1] == 1:
+          X=X.T
       except:
         pass
-      self.mean=X.mean(axis=0)
-      self.std=X.std(axis=0)
+      self.mean=X.mean(axis=1)
+      self.std=X.std(axis=1)
     def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
+        if X.shape[1] == 1:
+          X=X.T
       except:
         pass
-      X=X.T
-      R=(X.subtract(self.mean,axis=0)).divide(self.std+np.finfo(float).eps,axis=0)
-      return R.T
+      R=(X.subtract(self.mean, axis=0)).divide(self.std+np.finfo(float).eps, axis=0)
+      return R
     def fit_transform(self,X,y=None):
       try:
         X=pd.DataFrame(X)
+        if X.shape[1] == 1:
+          X=X.T
       except:
         pass
       self.fit(X)
       return self.transform(X)
+       
 class RNV(BaseEstimator,TransformerMixin):
     def __init__(self,q=0.1):
       self.__name__='RNV'
