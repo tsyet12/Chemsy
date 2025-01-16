@@ -16,7 +16,7 @@ if os.path.isfile(requirementPath):
 
 
 setup(name='Chemsy', 
-version='1.0', 
+version='1.01', 
 license='BSD 2-Clause',
 description="Chemsy: A Minimalistic Automated Framework for Chemometrics and Machine Learning",
 author='Sin Yong Teng',

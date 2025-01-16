@@ -331,7 +331,7 @@ class SNV(BaseEstimator,TransformerMixin):
       return self.transform(X)
        
 class RNV(BaseEstimator,TransformerMixin):
-    def __init__(self,q=0.5):
+    def __init__(self,q=0.1):
       self.__name__='RNV'
       self.q=q
 
