@@ -54,7 +54,7 @@ class BaselineASLS(BaseEstimator,TransformerMixin):
       self.y=y
   def transform(self,X,y=None):
       y=self.y
-      self.output=np.apply_along_axis(lambda x: self.line_remove(x), 0, X)        
+      self.output=np.apply_along_axis(lambda x: self.line_remove(x), 1, X)        
       return self.output
   def line_remove(self,f):
       L = len(f)
@@ -66,7 +66,7 @@ class BaselineASLS(BaseEstimator,TransformerMixin):
           Z=W + self.lam * D.dot(D.transpose())
           z = spsolve(Z, w * f)
           w = self.p * (f > z) + (1 - self.p) * (f < z)
-      return z  
+      return f-z  
 
   def fit_transform(self,X,y=None):
       self.y=y
@@ -252,7 +252,7 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
         except:
           pass
         X_=X.diff(self.d,axis=1)
-        drop= list(X_.columns)[0:2]
+        drop= list(X_.columns)[0:d]
         X_.drop(columns=drop,inplace=True)    
         return X_
     def fit_transform(self,X,y=None):
@@ -261,7 +261,7 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
         except:
           pass
         X_=X.diff(self.d,axis=1)
-        drop= list(X_.columns)[0:2]
+        drop= list(X_.columns)[0:d]
         X_.drop(columns=drop,inplace=True)    
         return X_
 
@@ -285,10 +285,10 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
         except:
           pass
         X_=X.diff(self.d,axis=1)
-        drop= list(X_.columns)[0:2]
+        drop= list(X_.columns)[0:d]
         X_.drop(columns=drop,inplace=True)  
         X_=X_.diff(self.d,axis=1) #second dev
-        drop= list(X_.columns)[0:2]
+        drop= list(X_.columns)[0:d]
         X_.drop(columns=drop,inplace=True) 
         return X_
     def fit_transform(self,X,y=None):
@@ -297,10 +297,10 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
         except:
           pass
         X_=X.diff(self.d,axis=1)
-        drop= list(X_.columns)[0:2]
+        drop= list(X_.columns)[0:d]
         X_.drop(columns=drop,inplace=True)  
         X_=X_.diff(self.d,axis=1) #second dev
-        drop= list(X_.columns)[0:2]
+        drop= list(X_.columns)[0:d]
         X_.drop(columns=drop,inplace=True)         
         return X_
 
