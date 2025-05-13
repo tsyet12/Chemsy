@@ -252,7 +252,7 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
         except:
           pass
         X_=X.diff(self.d,axis=1)
-        drop= list(X_.columns)[0:d]
+        drop= list(X_.columns)[0:self.d]
         X_.drop(columns=drop,inplace=True)    
         return X_
     def fit_transform(self,X,y=None):
@@ -261,7 +261,7 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
         except:
           pass
         X_=X.diff(self.d,axis=1)
-        drop= list(X_.columns)[0:d]
+        drop= list(X_.columns)[0:self.d]
         X_.drop(columns=drop,inplace=True)    
         return X_
 
@@ -285,10 +285,10 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
         except:
           pass
         X_=X.diff(self.d,axis=1)
-        drop= list(X_.columns)[0:d]
+        drop= list(X_.columns)[0:self.d]
         X_.drop(columns=drop,inplace=True)  
         X_=X_.diff(self.d,axis=1) #second dev
-        drop= list(X_.columns)[0:d]
+        drop= list(X_.columns)[0:self.d]
         X_.drop(columns=drop,inplace=True) 
         return X_
     def fit_transform(self,X,y=None):
@@ -297,10 +297,10 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
         except:
           pass
         X_=X.diff(self.d,axis=1)
-        drop= list(X_.columns)[0:d]
+        drop= list(X_.columns)[0:self.d]
         X_.drop(columns=drop,inplace=True)  
         X_=X_.diff(self.d,axis=1) #second dev
-        drop= list(X_.columns)[0:d]
+        drop= list(X_.columns)[0:self.d]
         X_.drop(columns=drop,inplace=True)         
         return X_
 
