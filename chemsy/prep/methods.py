@@ -224,7 +224,7 @@ class MSC(BaseEstimator,TransformerMixin):
         #self.mean= np.array(X.mean(axis=0))
         def transformMSC(x,mean):
             m,b= np.polyfit(mean,x,1)
-            return (x-b)*m
+            return (x-b)/m
         return X.apply(transformMSC,args=(self.mean,),axis=1).values
 
     def fit_transform(self,X,y=None):
@@ -235,7 +235,7 @@ class MSC(BaseEstimator,TransformerMixin):
         self.mean= np.array(X.mean(axis=0))
         def transformMSC(x,mean):
             m,b= np.polyfit(mean,x,1)
-            return (x-b)*m
+            return (x-b)/m
         return X.apply(transformMSC,args=(self.mean,),axis=1).values
 
 
