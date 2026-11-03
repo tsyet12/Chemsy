@@ -38,7 +38,8 @@ class SavgolFilter(BaseEstimator,TransformerMixin):
       self.output=savgol_filter(X,window_length=self.window_length,polyorder=self.polyorder,axis=self.axis)
       return self.output
       
-  
+  def __sklearn_is_fitted__(self):
+        return hasattr(self, "output")
 
 class BaselineASLS(BaseEstimator,TransformerMixin):
   #Asymmetric Least Squares
@@ -72,6 +73,8 @@ class BaselineASLS(BaseEstimator,TransformerMixin):
       self.y=y
       return self.transform(X,y)
 
+   def __sklearn_is_fitted__(self):
+        return hasattr(self, "output")
 
 
 class BaselineModpoly(BaseEstimator,TransformerMixin):
@@ -79,7 +82,7 @@ class BaselineModpoly(BaseEstimator,TransformerMixin):
     self.__name__='BaselineModPoly'
     self.degree=degree 
   def fit(self,X,y=None):
-    pass
+    self.is_fitted_ = True
   def transform(self,X,y=None):
     try:
       X=X.to_numpy()
@@ -92,6 +95,7 @@ class BaselineModpoly(BaseEstimator,TransformerMixin):
       del MP
     return X_
   def fit_transform(self,X,y=None):
+    self.is_fitted_ = True
     try:
       X=X.to_numpy()
     except:
@@ -102,7 +106,8 @@ class BaselineModpoly(BaseEstimator,TransformerMixin):
       X_[i,:]=MP.ModPoly(self.degree)
       del MP
     return X_
-
+  def __sklearn_is_fitted__(self):
+        return hasattr(self, "is_fitted_") 
 
 class BaselineZhangFit(BaseEstimator,TransformerMixin):
   def __init__(self, itermax=50):
@@ -110,7 +115,7 @@ class BaselineZhangFit(BaseEstimator,TransformerMixin):
     self.itermax=itermax
 
   def fit(self,X,y=None):
-    pass
+    self.is_fitted_ = True
   def transform(self,X,y=None):
     try:
       X=X.to_numpy()
@@ -123,6 +128,7 @@ class BaselineZhangFit(BaseEstimator,TransformerMixin):
       del MP
     return X_
   def fit_transform(self,X,y=None):
+    self.is_fitted_ = True
     try:
       X=X.to_numpy()
     except:
@@ -133,6 +139,8 @@ class BaselineZhangFit(BaseEstimator,TransformerMixin):
       X_[i,:]=MP.ZhangFit(itermax=self.itermax)
       del MP
     return X_
+  def __sklearn_is_fitted__(self):
+    return hasattr(self, "is_fitted_")
 
 class BaselineIModPoly(BaseEstimator,TransformerMixin):
   def __init__(self, degree=2):
@@ -140,7 +148,7 @@ class BaselineIModPoly(BaseEstimator,TransformerMixin):
     self.degree=degree
 
   def fit(self,X,y=None):
-    pass
+    self.is_fitted_ = True
   def transform(self,X,y=None):
     try:
       X=X.to_numpy()
@@ -153,6 +161,7 @@ class BaselineIModPoly(BaseEstimator,TransformerMixin):
       del MP
     return X_
   def fit_transform(self,X,y=None):
+    self.is_fitted_ = True
     try:
       X=X.to_numpy()
     except:
@@ -163,13 +172,15 @@ class BaselineIModPoly(BaseEstimator,TransformerMixin):
       X_[i,:]=MP.IModPoly(self.degree)
       del MP
     return X_
+  def __sklearn_is_fitted__(self):
+    return hasattr(self, "is_fitted_")
 
 class BaselineLinear(BaseEstimator,TransformerMixin):
   def __init__(self):
     self.__name__='BaselineLinear'
 
   def fit(self,X,y=None):
-    pass
+    self.is_fitted_ = True
   def transform(self,X,y=None):
     try:
       X=X.to_numpy()
@@ -177,12 +188,14 @@ class BaselineLinear(BaseEstimator,TransformerMixin):
       pass
     return signal.detrend(X)
   def fit_transform(self,X,y=None):
+    self.is_fitted_ = True
     try:
       X=X.to_numpy()
     except:
       pass
     return signal.detrend(X)
-
+  def __sklearn_is_fitted__(self):
+    return hasattr(self, "is_fitted_")
 
 class BaselineSecondOrder(BaseEstimator,TransformerMixin):
   def __init__(self,degree=2):
@@ -190,8 +203,9 @@ class BaselineSecondOrder(BaseEstimator,TransformerMixin):
       self.degree=degree 
   
   def fit(self,X,y=None):
-      pass
+      self.is_fitted_ = True
   def fit_transform(self,X,y=None):
+      self.is_fitted_ = True
       try:
         X=pd.DataFrame(X)
       except:
@@ -207,7 +221,8 @@ class BaselineSecondOrder(BaseEstimator,TransformerMixin):
       t=np.arange(0,X.shape[1])
       X_s= X.apply(lambda x: x- np.polyval(np.polyfit(t,x,self.degree), t),axis=1)
       return  X_s
-
+  def __sklearn_is_fitted__(self):
+    return hasattr(self, "is_fitted_")
 
 class MSC(BaseEstimator,TransformerMixin):
     def __init__(self):
@@ -237,7 +252,8 @@ class MSC(BaseEstimator,TransformerMixin):
             m,b= np.polyfit(mean,x,1)
             return (x-b)/m
         return X.apply(transformMSC,args=(self.mean,),axis=1).values
-
+    def __sklearn_is_fitted__(self):
+        return hasattr(self, "mean")
 
 class FirstDerivative(BaseEstimator,TransformerMixin):
     def __init__(self,d=2):
@@ -245,7 +261,7 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
         self.d=d  
     
     def fit(self,X,y=None):
-        pass
+        self.is_fitted_ = True
     def transform(self,X,y=None): 
         try:
           X=pd.DataFrame(X)
@@ -256,6 +272,7 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
         X_.drop(columns=drop,inplace=True)    
         return X_
     def fit_transform(self,X,y=None):
+        self.is_fitted_ = True
         try:
           X=pd.DataFrame(X)
         except:
@@ -264,7 +281,8 @@ class FirstDerivative(BaseEstimator,TransformerMixin):
         drop= list(X_.columns)[0:self.d]
         X_.drop(columns=drop,inplace=True)    
         return X_
-
+    def __sklearn_is_fitted__(self):
+        return hasattr(self, "is_fitted_")
 # TO DO:
 #Piecewise MSC (PMSC)
 #Extended MSC (2nd order), Inverse MSC, EIMSC
@@ -278,7 +296,7 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
         self.d=d
 
     def fit(self,X,y=None):
-        pass
+        self.is_fitted_ = True
     def transform(self,X,y=None): 
         try:
           X=pd.DataFrame(X)
@@ -292,6 +310,7 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
         X_.drop(columns=drop,inplace=True) 
         return X_
     def fit_transform(self,X,y=None):
+        self.is_fitted_ = True
         try:
           X=pd.DataFrame(X)
         except:
@@ -303,14 +322,15 @@ class SecondDerivative(BaseEstimator,TransformerMixin):
         drop= list(X_.columns)[0:self.d]
         X_.drop(columns=drop,inplace=True)         
         return X_
-
+    def __sklearn_is_fitted__(self):
+        return hasattr(self, "is_fitted_")
 
 class SNV(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='SNV'
 
     def fit(self,X):
-      pass
+      self.is_fitted_ = True
     def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
@@ -321,6 +341,7 @@ class SNV(BaseEstimator,TransformerMixin):
       R=(X.subtract(X.mean(axis=1), axis=0)).divide(X.std(axis=1)+np.finfo(float).eps, axis=0)
       return R
     def fit_transform(self,X,y=None):
+      self.is_fitted_ = True
       try:
         X=pd.DataFrame(X)
         if X.shape[1] == 1:
@@ -329,6 +350,8 @@ class SNV(BaseEstimator,TransformerMixin):
         pass
       self.fit(X)
       return self.transform(X)
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "is_fitted_")
        
 class RNV(BaseEstimator,TransformerMixin):
     def __init__(self,q=0.1):
@@ -336,7 +359,7 @@ class RNV(BaseEstimator,TransformerMixin):
       self.q=q
 
     def fit(self,X):
-      pass
+      self.is_fitted_ = True
     def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
@@ -350,6 +373,7 @@ class RNV(BaseEstimator,TransformerMixin):
       qstd=(np.asarray(qstd)*np.ones(X.shape).T).T
       return (X-percentile2)/(qstd+np.finfo(float).eps)
     def fit_transform(self,X,y=None):
+      self.is_fitted_ = True
       try:
         X=pd.DataFrame(X)
         if X.shape[1] == 1:
@@ -358,6 +382,8 @@ class RNV(BaseEstimator,TransformerMixin):
         pass
       self.fit(X)  
       return self.transform(X)
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "is_fitted_")
       
 class MeanScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
@@ -379,6 +405,8 @@ class MeanScaling(BaseEstimator,TransformerMixin):
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X) 
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "mean")
       
 class MedianScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
@@ -400,6 +428,9 @@ class MedianScaling(BaseEstimator,TransformerMixin):
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X) 
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "median")
+       
 class MaxScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='MaxScaling'
@@ -420,6 +451,8 @@ class MaxScaling(BaseEstimator,TransformerMixin):
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X)
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "max")
       
 class MeanCentering(BaseEstimator,TransformerMixin):
     def __init__(self):
@@ -441,6 +474,8 @@ class MeanCentering(BaseEstimator,TransformerMixin):
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X) 
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "mean")
 
 class PoissonScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
@@ -461,7 +496,9 @@ class PoissonScaling(BaseEstimator,TransformerMixin):
       return pd.DataFrame(np.divide(np.asarray(X),np.sqrt(np.abs(np.asarray(self.mean)))))
     def fit_transform(self,X,y=None):
       self.fit(X)
-      return self.transform(X) 
+      return self.transform(X)
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "mean")
 
 
 class ParetoScaling(BaseEstimator,TransformerMixin):
@@ -483,6 +520,8 @@ class ParetoScaling(BaseEstimator,TransformerMixin):
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X) 
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "std")
 
 class LevelScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
@@ -503,6 +542,9 @@ class LevelScaling(BaseEstimator,TransformerMixin):
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X)  
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "mean")
+       
 class RangeScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='RangeScaling'
@@ -526,12 +568,14 @@ class RangeScaling(BaseEstimator,TransformerMixin):
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X)
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "max")
 
 class LogTransform(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='LogTransform'
     def fit(self,X,y=None):
-      pass
+      self.is_fitted_ = True
     def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
@@ -541,12 +585,14 @@ class LogTransform(BaseEstimator,TransformerMixin):
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X)
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "is_fitted_")
 
 class L2NormScaling(BaseEstimator,TransformerMixin):
     def __init__(self):
       self.__name__='L2NormScaling'
     def fit(self,X,y=None):
-      pass
+      self.is_fitted_ = True
     def transform(self,X, y=None):
       try:
         X=pd.DataFrame(X)
@@ -556,6 +602,8 @@ class L2NormScaling(BaseEstimator,TransformerMixin):
     def fit_transform(self,X,y=None):
       self.fit(X)
       return self.transform(X)
+    def __sklearn_is_fitted__(self):
+      return hasattr(self, "is_fitted_")
 
 
 class OPLS(BaseEstimator, TransformerMixin):
