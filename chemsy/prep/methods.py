@@ -73,8 +73,8 @@ class BaselineASLS(BaseEstimator,TransformerMixin):
       self.y=y
       return self.transform(X,y)
 
-   def __sklearn_is_fitted__(self):
-        return hasattr(self, "output")
+  def __sklearn_is_fitted__(self):
+      return hasattr(self, "output")
 
 
 class BaselineModpoly(BaseEstimator,TransformerMixin):
